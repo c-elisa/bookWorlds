@@ -1,0 +1,61 @@
+@font-face{
+    font-family: 'Italiana';
+    src: url('../fonts/Italiana-Regular.ttf');
+}
+@font-face{
+    font-family: 'Epilogue';
+    src: url('../fonts/Epilogue-Light.ttf');
+}
+
+#appTitle {
+    -fx-font-family: "Italiana";
+    -fx-font-size: 45px;
+    -fx-effect: dropshadow(gaussian, black, 15, 0, 2, 2);
+}
+
+#modeLabel{
+    -fx-font-family: "Italiana";
+    -fx-font-size: 25px;
+    -fx-effect: dropshadow(gaussian, black, 15, 0, 2, 2);
+}
+
+#textTitle{
+    -fx-font-family: "Epilogue";
+    -fx-font-size: 25px;
+    -fx-text-fill: #59351F;
+    -fx-font-weight: bold;
+}
+
+.scroll-pane{
+    -fx-background-color: transparent;
+    -fx-hbar-policy: never;
+}
+
+.scroll-pane > .corner{
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar,
+.scroll-pane .scroll-bar .decrement-arrow,
+.scroll-pane .scroll-bar .increment-arrow {
+    -fx-pref-width: 0;
+    -fx-pref-height: 0;
+}
+
+.button{
+    -fx-font-family: "Epilogue";
+    -fx-background-color: #59351F;
+    -fx-text-fill: white;
+    -fx-font-size: 25px;
+    -fx-background-radius: 20px;
+}
+
+.button:hover{
+    -fx-cursor: hand;
+    -fx-background-color: #c49372;
+    -fx-text-fill: #59351F;
+    -fx-border-color: #59351F;
+    -fx-border-radius: 20px;
+    -fx-border-width: 3px;
+}
+
