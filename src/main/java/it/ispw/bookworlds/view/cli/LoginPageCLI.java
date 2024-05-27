@@ -1,5 +1,7 @@
 package it.ispw.bookworlds.view.cli;
 
+import it.ispw.bookworlds.bean.CredentialsBean;
+import it.ispw.bookworlds.controller.graphic.cli.LoginGraphicController;
 import it.ispw.bookworlds.utils.Printer;
 
 public class LoginPageCLI extends GeneralPageCLI implements PageCLI{
@@ -12,9 +14,12 @@ public class LoginPageCLI extends GeneralPageCLI implements PageCLI{
     }
 
     public void requestCredentials(){
-        while(true){
-            String username = requestString("Username: ");
-            String password = requestString("Password: ");
-        }
+        String username = requestString("Username: ");
+        String password = requestString("Password: ");
+
+        CredentialsBean creds = new CredentialsBean(username, password);
+        LoginGraphicController controller = new LoginGraphicController();
+
+        controller.login(creds);
     }
 }
