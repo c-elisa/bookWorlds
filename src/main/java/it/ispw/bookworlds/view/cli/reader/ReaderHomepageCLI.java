@@ -1,6 +1,8 @@
 package it.ispw.bookworlds.view.cli.reader;
 
 import it.ispw.bookworlds.controller.graphic.cli.reader.ReaderHomepageGraphicController;
+import it.ispw.bookworlds.exceptions.InvalidSelectionException;
+import it.ispw.bookworlds.utils.Printer;
 import it.ispw.bookworlds.view.cli.GeneralPageCLI;
 import it.ispw.bookworlds.view.cli.PageCLI;
 
@@ -19,9 +21,22 @@ public class ReaderHomepageCLI extends GeneralPageCLI implements PageCLI {
 
     //Controller grafico associato alla View
     private final ReaderHomepageGraphicController controller = new ReaderHomepageGraphicController();
+
     @Override
     public void display(){
-        clearScreen();
-        printTitle();
+
+        while(true) {
+            clearScreen();
+            printTitle();
+            Printer.println(READER_MENU);
+            try{
+                int selection = requestInt("Seleziona un'opzione");
+                switch(selection){
+                    default -> throw new InvalidSelectionException();
+                }
+            }catch(InvalidSelectionException e){
+                printErrorMessage(e.getLocalizedMessage());
+            }
+        }
     }
 }

@@ -1,7 +1,5 @@
 package it.ispw.bookworlds.utils;
 
-import java.util.logging.Logger;
-
 public class Printer {
     private Printer(){}
     public static void print(String string){System.out.print(string);}

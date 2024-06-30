@@ -2,7 +2,6 @@ package it.ispw.bookworlds.bean;
 
 import it.ispw.bookworlds.model.Genre;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class BookClubBean {

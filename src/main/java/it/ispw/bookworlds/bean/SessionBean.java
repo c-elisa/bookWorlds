@@ -4,7 +4,6 @@ public class SessionBean {
     private static int sessionId;
 
     private SessionBean(){
-        sessionId = 0;
     }
 
     public static int getSessionId(){return sessionId;}
