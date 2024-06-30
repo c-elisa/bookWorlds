@@ -29,6 +29,7 @@ public class LoginDAOFileSystem implements LoginDAO{
         if(instance == null){ instance = new LoginDAOFileSystem();}
         return instance;
     }
+
     @Override
     public AccountEntity login(String username, String password) throws IncorrectPasswordException, UsernameNotFoundException {
         AccountEntity account = null;
@@ -46,6 +47,7 @@ public class LoginDAOFileSystem implements LoginDAO{
                                 nextRecord[AccountAttributesOrder.USERNAME.getIndex()],
                                 nextRecord[AccountAttributesOrder.EMAIL.getIndex()],
                                 Role.getRole(nextRecord[AccountAttributesOrder.ROLE.getIndex()]));
+                        break;
                     }
                     else{
                         throw new IncorrectPasswordException();

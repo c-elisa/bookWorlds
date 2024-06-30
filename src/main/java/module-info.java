@@ -4,6 +4,7 @@ module it.ispw.bookworlds.bookworlds {
 
     requires org.controlsfx.controls;
     requires com.opencsv;
+    requires java.desktop;
 
     opens it.ispw.bookworlds to javafx.fxml;
     exports it.ispw.bookworlds;

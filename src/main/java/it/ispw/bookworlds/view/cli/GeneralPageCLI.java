@@ -14,20 +14,28 @@ public class GeneralPageCLI {
         Printer.println("*********************************\n");
     }
 
+    protected void printErrorMessage(String message){Printer.printError(message);}
+
     protected String requestString(String message){
-        String input = null;
         while(true) {
             try {
                 Printer.print(message);
                 BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-                input = reader.readLine();
-                break;
+                return reader.readLine();
             } catch (IOException e) {
-                Printer.printError("Errore durante la lettura dell'input, riprovare.");
+                printErrorMessage("Errore durante la lettura dell'input, riprovare.");
             }
         }
+    }
 
-        return input;
+    protected int requestInt(String message){
+        while(true){
+            try {
+                return Integer.parseInt(requestString(message));
+            } catch(NumberFormatException e){
+                printErrorMessage(e.getLocalizedMessage());
+            }
+        }
     }
 
     protected static void clearScreen(){

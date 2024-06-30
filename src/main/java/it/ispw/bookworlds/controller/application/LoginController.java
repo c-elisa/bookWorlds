@@ -7,14 +7,13 @@ import it.ispw.bookworlds.exceptions.IncorrectPasswordException;
 import it.ispw.bookworlds.exceptions.UsernameNotFoundException;
 import it.ispw.bookworlds.factory.GeneralDAOFactory;
 import it.ispw.bookworlds.model.AccountEntity;
-import it.ispw.bookworlds.model.Role;
 import it.ispw.bookworlds.utils.Printer;
 import it.ispw.bookworlds.utils.SessionManager;
 
 public class LoginController {
     public boolean login(CredentialsBean creds){
         LoginDAO loginDao = GeneralDAOFactory.getInstance().createLoginDao();
-        AccountEntity account = null;
+        AccountEntity account;
         try {
             account = loginDao.login(creds.getUsername(), creds.getPassword());
             SessionManager.addSession(account);
