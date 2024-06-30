@@ -5,16 +5,15 @@ import it.ispw.bookworlds.bean.SessionBean;
 import it.ispw.bookworlds.exceptions.SessionNotFoundException;
 import it.ispw.bookworlds.utils.SessionManager;
 
-import java.awt.print.Book;
 import java.util.ArrayList;
+import java.util.List;
 
 public class BookClubEntity {
     private String name;
-    private ArrayList<Genre> genres;
+    private List<Genre> genres;
     private int numberOfSubscribers;
     private AccountEntity owner;
     private ArrayList<AccountEntity> subscribersList;
-    //private BookEntity bookOfTheMonth;
     private ArrayList<BookEntity> readingList;
 
     public BookClubEntity(BookClubBean bean) throws SessionNotFoundException {
@@ -32,5 +31,5 @@ public class BookClubEntity {
 
     public int getNumberOfSubscribers(){return this.numberOfSubscribers;}
 
-    public ArrayList<Genre> getGenres(){return this.genres;}
+    public List<Genre> getGenres(){return this.genres;}
 }

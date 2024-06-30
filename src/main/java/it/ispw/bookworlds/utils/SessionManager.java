@@ -4,7 +4,6 @@ import it.ispw.bookworlds.exceptions.SessionNotFoundException;
 import it.ispw.bookworlds.model.AccountEntity;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class SessionManager {
     private static final ArrayList<AccountEntity> sessions = new ArrayList<AccountEntity>();

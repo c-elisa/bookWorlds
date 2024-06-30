@@ -18,18 +18,18 @@ public class BookClubDAOFileSystem implements BookClubDAO {
     private static final String BOOKCLUB_FILE_PATH = "csv/bookclub.csv";
     private static final String SUBSCRIBERS_FILE_PATH = "csv/subscribers.csv";
     private static final String READINGLIST_FILE_PATH = "csv/readingList.csv";
-    private File bookclub_fd;
-    private File subscribers_fd;
-    private File readingList_fd;
+    private File bookclubFd;
+    private File subscribersFd;
+    private File readingListFd;
 
     private BookClubDAOFileSystem(){
         try{
-            bookclub_fd = new File(BOOKCLUB_FILE_PATH);
-            if(!bookclub_fd.exists() && !bookclub_fd.createNewFile()){throw new IOException();}
-            subscribers_fd = new File(SUBSCRIBERS_FILE_PATH);
-            if(!subscribers_fd.exists() && !subscribers_fd.createNewFile()){throw new IOException();}
-            readingList_fd = new File(READINGLIST_FILE_PATH);
-            if(!readingList_fd.exists() && !readingList_fd.createNewFile()){throw new IOException();}
+            bookclubFd = new File(BOOKCLUB_FILE_PATH);
+            if(!bookclubFd.exists() && !bookclubFd.createNewFile()){throw new IOException();}
+            subscribersFd = new File(SUBSCRIBERS_FILE_PATH);
+            if(!subscribersFd.exists() && !subscribersFd.createNewFile()){throw new IOException();}
+            readingListFd = new File(READINGLIST_FILE_PATH);
+            if(!readingListFd.exists() && !readingListFd.createNewFile()){throw new IOException();}
         } catch (IOException e) {
             Printer.printError(e.getLocalizedMessage());
             System.exit(-1);
@@ -43,7 +43,7 @@ public class BookClubDAOFileSystem implements BookClubDAO {
 
     @Override
     public void createBookClub(BookClubEntity bookClub) {
-        try(CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(bookclub_fd, true)))){
+        try(CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(bookclubFd, true)))){
             ArrayList<String> data = new ArrayList<String>();
             data.add(bookClub.getName());
             data.add(bookClub.getOwner());
