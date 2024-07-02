@@ -5,6 +5,7 @@ import it.ispw.bookworlds.utils.Printer;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class GeneralPageCLI {
 
@@ -40,5 +41,13 @@ public class GeneralPageCLI {
 
     protected static void clearScreen(){
         System.out.print("\\033[H\\033[2J");
+    }
+
+    protected void printList(ArrayList<String> list){
+        int i = 1;
+        for(String string: list){
+            Printer.println("[" + i + "] " + string);
+            i++;
+        }
     }
 }

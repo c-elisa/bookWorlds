@@ -25,7 +25,7 @@ public class CreateBookClubCLI extends GeneralPageCLI implements PageCLI {
 
         Printer.println("Seleziona i generi...");
         Printer.println("[0] Fine selezione");
-        Genre.printAsList();
+        //Genre.printAsList();
         do{
             try {
                 selection = requestInt("Selezionare genere: ");

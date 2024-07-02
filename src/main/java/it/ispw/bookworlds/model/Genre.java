@@ -2,6 +2,9 @@ package it.ispw.bookworlds.model;
 
 import it.ispw.bookworlds.utils.Printer;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public enum Genre {
     FANTASY,
     SCI_FI,
@@ -28,10 +31,8 @@ public enum Genre {
     HISTORY,
     BUSINESS;
 
-    public static void printAsList(){
-        for(Genre g: Genre.values()){
-            Printer.println("[" + (Genre.valueOf(g.toString()).ordinal() + 1) + "] " + g);
-        }
+    public static ArrayList<Genre> getAsList(){
+        return new ArrayList<Genre>(Arrays.asList(Genre.values()));
     }
 
     public static int possibleNumbers(){return Genre.values().length;}
