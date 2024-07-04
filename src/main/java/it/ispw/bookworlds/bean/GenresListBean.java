@@ -1,13 +1,14 @@
 package it.ispw.bookworlds.bean;
 
-import it.ispw.bookworlds.utils.Printer;
-
 import java.util.ArrayList;
+import java.util.List;
 
 public class GenresListBean {
-    public ArrayList<String> genres;
+    private List<String> genres = new ArrayList<>();
 
-    public GenresListBean(){genres = new ArrayList<>();}
+    public List<String> getGenres(){return genres;}
 
-    public ArrayList<String> getGenres(){return genres;}
+    public void addGenre(String genre){genres.add(genre);}
+
+    public boolean contains(String genre){return genres.contains(genre);}
 }

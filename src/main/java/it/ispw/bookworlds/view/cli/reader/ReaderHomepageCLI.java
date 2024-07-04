@@ -30,7 +30,7 @@ public class ReaderHomepageCLI extends GeneralPageCLI implements PageCLI {
             printTitle();
             Printer.println(READER_MENU);
             try{
-                int selection = requestInt("Seleziona un'opzione");
+                int selection = requestInt("Seleziona un'opzione: ");
                 switch(selection){
                     case 1 -> controller.subscribeToBookClub();
                     default -> throw new InvalidSelectionException();

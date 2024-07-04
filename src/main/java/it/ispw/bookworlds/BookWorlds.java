@@ -4,10 +4,8 @@ import it.ispw.bookworlds.controller.graphic.gui.PageControllerGUI;
 import it.ispw.bookworlds.exceptions.InvalidSelectionException;
 import it.ispw.bookworlds.utils.Printer;
 import it.ispw.bookworlds.view.cli.LoginPageCLI;
-import it.ispw.bookworlds.view.gui.PagesGUI;
+import it.ispw.bookworlds.controller.graphic.gui.PagesGUI;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.BufferedReader;

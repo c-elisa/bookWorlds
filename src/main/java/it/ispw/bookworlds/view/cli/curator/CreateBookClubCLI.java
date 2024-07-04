@@ -13,6 +13,8 @@ import it.ispw.bookworlds.view.cli.PageCLI;
 import java.util.ArrayList;
 
 public class CreateBookClubCLI extends GeneralPageCLI implements PageCLI {
+    CreateBookClubGraphicController controller = new CreateBookClubGraphicController();
+
     @Override
     public void display(){
         ArrayList<Genre> genres = new ArrayList<Genre>();
@@ -22,10 +24,11 @@ public class CreateBookClubCLI extends GeneralPageCLI implements PageCLI {
         Printer.println("\n--- CREA UN NUOVO CLUB DEL LIBRO ---");
 
         String name = requestString("Nome: ");
+        int capacity = requestInt("Capacità massima: ");
 
         Printer.println("Seleziona i generi...");
         Printer.println("[0] Fine selezione");
-        //Genre.printAsList();
+        printList(controller.getGenresList().getGenres());
         do{
             try {
                 selection = requestInt("Selezionare genere: ");
@@ -40,8 +43,7 @@ public class CreateBookClubCLI extends GeneralPageCLI implements PageCLI {
             }
         }while(selection != 0);
 
-        BookClubBean bean = new BookClubBean(name, genres);
-        CreateBookClubGraphicController controller = new CreateBookClubGraphicController();
+        BookClubBean bean = new BookClubBean(name, genres, capacity);
 
         try {
             controller.createBookClub(bean);

@@ -7,9 +7,9 @@ import it.ispw.bookworlds.model.BookClubEntity;
 import it.ispw.bookworlds.model.Genre;
 import it.ispw.bookworlds.utils.Printer;
 
+import java.awt.print.Book;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class BookClubDAOFileSystem implements BookClubDAO {
@@ -47,6 +47,7 @@ public class BookClubDAOFileSystem implements BookClubDAO {
             data.add(bookClub.getName());
             data.add(bookClub.getOwner());
             data.add(String.valueOf(bookClub.getNumberOfSubscribers()));
+            data.add(String.valueOf(bookClub.getCapacity()));
             for(Genre g: bookClub.getGenres()) data.add(String.valueOf(g));
             csvWriter.writeNext(data.toArray(new String[0]));
         }catch(IOException e){
@@ -77,6 +78,7 @@ public class BookClubDAOFileSystem implements BookClubDAO {
                         nextRecord[BookClubAttributesOrder.NAME.getIndex()],
                         bookClubGenres,
                         Integer.parseInt(nextRecord[BookClubAttributesOrder.NUMBER_OF_SUBSCRIBERS.getIndex()]),
+                        Integer.parseInt(nextRecord[BookClubAttributesOrder.CAPACITY.getIndex()]),
                         nextRecord[BookClubAttributesOrder.OWNER.getIndex()]
                 );
 
@@ -93,36 +95,36 @@ public class BookClubDAOFileSystem implements BookClubDAO {
         }
 
         return bookClubs;
+    }
 
-        /**try(CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(bookclubFd)))){
+    @Override
+    public BookClubEntity getBookClubByName(String name){
+        BookClubEntity bookClub = null;
+        //recupera tutti i dati relativi ai club del libro esistenti
+        try(CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(bookclubFd)))){
             String[] nextRecord;
 
             while((nextRecord = csvReader.readNext())!=null){
-                for(int i = BookClubAttributesOrder.GENRES.getIndex(); i<nextRecord.length; i++){
-                    for (Genre genre : genres) {
-                        if (Objects.equals(nextRecord[i], genre.toString())) {
-                            ArrayList<Genre> bookClubGenres = new ArrayList<Genre>();
+                if(Objects.equals(nextRecord[BookClubAttributesOrder.NAME.getIndex()], name)){
+                    ArrayList<Genre> bookClubGenres = new ArrayList<>();
 
-                            for(int k = BookClubAttributesOrder.GENRES.getIndex(); k<nextRecord.length; k++){
-                                bookClubGenres.add(Genre.valueOf(nextRecord[k]));
-                            }
-
-                            BookClubEntity bookClub = new BookClubEntity(
-                                    nextRecord[BookClubAttributesOrder.NAME.getIndex()],
-                                    bookClubGenres,
-                                    Integer.parseInt(nextRecord[BookClubAttributesOrder.NUMBER_OF_SUBSCRIBERS.getIndex()]),
-                                    nextRecord[BookClubAttributesOrder.OWNER.getIndex()]
-                            );
-
-                            if(!bookClubs.contains(bookClub)) bookClubs.add(bookClub);
-                            break;
-                        }
+                    for(int i = BookClubAttributesOrder.GENRES.getIndex(); i<nextRecord.length; i++){
+                        bookClubGenres.add(Genre.valueOf(nextRecord[i]));
                     }
-                }
 
+                    bookClub = new BookClubEntity(
+                            nextRecord[BookClubAttributesOrder.NAME.getIndex()],
+                            bookClubGenres,
+                            Integer.parseInt(nextRecord[BookClubAttributesOrder.NUMBER_OF_SUBSCRIBERS.getIndex()]),
+                            Integer.parseInt(nextRecord[BookClubAttributesOrder.CAPACITY.getIndex()]),
+                            nextRecord[BookClubAttributesOrder.OWNER.getIndex()]
+                    );
+                }
             }
         } catch (IOException | CsvValidationException e) {
             Printer.printError(e.getLocalizedMessage());
-        }**/
+        }
+
+        return bookClub;
     }
 }

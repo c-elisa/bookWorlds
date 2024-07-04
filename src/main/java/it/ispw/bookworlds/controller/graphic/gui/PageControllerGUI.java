@@ -2,12 +2,9 @@ package it.ispw.bookworlds.controller.graphic.gui;
 
 import it.ispw.bookworlds.BookWorlds;
 import it.ispw.bookworlds.utils.Printer;
-import it.ispw.bookworlds.view.gui.PagesGUI;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 
 public class PageControllerGUI {
     private static Stage stage = null;

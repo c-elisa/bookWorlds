@@ -1,6 +1,7 @@
 package it.ispw.bookworlds.controller.graphic.cli.curator;
 
 import it.ispw.bookworlds.bean.BookClubBean;
+import it.ispw.bookworlds.bean.GenresListBean;
 import it.ispw.bookworlds.controller.application.curator.CreateBookClubController;
 import it.ispw.bookworlds.exceptions.SessionNotFoundException;
 
@@ -9,5 +10,11 @@ public class CreateBookClubGraphicController {
         CreateBookClubController controller = new CreateBookClubController();
 
         controller.createBookClub(bean);
+    }
+
+    public GenresListBean getGenresList(){
+        CreateBookClubController controller = new CreateBookClubController();
+
+        return controller.getGenresList();
     }
 }

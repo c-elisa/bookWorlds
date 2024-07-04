@@ -1,9 +1,6 @@
 package it.ispw.bookworlds.factory;
 
-import it.ispw.bookworlds.dao.BookClubDAO;
-import it.ispw.bookworlds.dao.LoginDAO;
-import it.ispw.bookworlds.dao.LoginDAOFileSystem;
-import it.ispw.bookworlds.dao.BookClubDAOFileSystem;
+import it.ispw.bookworlds.dao.*;
 
 public class GeneralDAOFactoryFileSystem extends GeneralDAOFactory {
     @Override
@@ -11,4 +8,7 @@ public class GeneralDAOFactoryFileSystem extends GeneralDAOFactory {
 
     @Override
     public BookClubDAO createBookClubDAO() {return BookClubDAOFileSystem.getInstance();}
+
+    @Override
+    public SubscriptionRequestDAO createSubscriptionRequestDAO() {return SubscriptionRequestDAOFileSystem.getInstance();}
 }

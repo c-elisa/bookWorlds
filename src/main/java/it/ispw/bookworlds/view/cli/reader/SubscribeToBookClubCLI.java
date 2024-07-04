@@ -2,19 +2,24 @@ package it.ispw.bookworlds.view.cli.reader;
 
 import it.ispw.bookworlds.bean.BookClubBean;
 import it.ispw.bookworlds.bean.GenresListBean;
+import it.ispw.bookworlds.bean.SubscriptionRequestBean;
 import it.ispw.bookworlds.controller.graphic.cli.reader.SubscribeToBookClubGraphicController;
+import it.ispw.bookworlds.exceptions.GenreAlreadySelectedException;
 import it.ispw.bookworlds.exceptions.InvalidSelectionException;
 import it.ispw.bookworlds.exceptions.NoGenresSelectedException;
+import it.ispw.bookworlds.exceptions.SessionNotFoundException;
 import it.ispw.bookworlds.model.Genre;
 import it.ispw.bookworlds.utils.Printer;
 import it.ispw.bookworlds.view.cli.GeneralPageCLI;
 import it.ispw.bookworlds.view.cli.PageCLI;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SubscribeToBookClubCLI extends GeneralPageCLI implements PageCLI {
     private GenresListBean selectedGenres = new GenresListBean();
-    private ArrayList<String> allGenres = new ArrayList<>();
+    private List<String> allGenres;
+    private SubscriptionRequestBean request;
     private SubscribeToBookClubGraphicController controller = new SubscribeToBookClubGraphicController();
 
     @Override
@@ -28,6 +33,19 @@ public class SubscribeToBookClubCLI extends GeneralPageCLI implements PageCLI {
         printList(allGenres);
         selectGenres();
 
+        while(true){
+            if(makeRequest()) {
+                controller.makeSubscriptionRequest(request);
+                break;
+            }
+        }
+    }
+
+    public void showUpdate(String message){
+        Printer.println(message);
+    }
+
+    private boolean makeRequest(){
         BookClubBean selectedBookClub;
         ArrayList<BookClubBean> bookClubs = controller.findBookClubs(selectedGenres);
         showBookClubs(bookClubs);
@@ -38,13 +56,31 @@ public class SubscribeToBookClubCLI extends GeneralPageCLI implements PageCLI {
         while(true) {
             try {
                 selection = requestInt("Selezionare un club del libro: ");
-                if(selection > bookClubs.size()) throw new InvalidSelectionException();
+                if(selection > bookClubs.size() || selection == 0) throw new InvalidSelectionException();
                 selectedBookClub = bookClubs.get(selection - 1);
+                break;
             }catch(InvalidSelectionException e) {
                 printErrorMessage(e.getLocalizedMessage());
             }
         }
 
+        showBookClubInfo(selectedBookClub);
+
+        while(true){
+            try{
+                selection = requestInt("[1] Inoltrare richiesta di iscrizione\t[2] Annullare\nSelezionare --> ");
+                switch(selection){
+                    case 1 -> {
+                        request = new SubscriptionRequestBean(selectedBookClub.getName());
+                        return true;
+                    }
+                    case 2 -> {return false;}
+                    default -> throw new InvalidSelectionException();
+                }
+            } catch (InvalidSelectionException | SessionNotFoundException e) {
+                printErrorMessage(e.getLocalizedMessage());
+            }
+        }
     }
 
     private void selectGenres(){
@@ -58,8 +94,9 @@ public class SubscribeToBookClubCLI extends GeneralPageCLI implements PageCLI {
                 if(selection > allGenres.size()) throw new InvalidSelectionException();
                 if(selection == 0 && selectedGenres.getGenres().isEmpty()) throw new NoGenresSelectedException();
                 if(selection == 0) break;
-                selectedGenres.getGenres().add(allGenres.get(selection - 1));
-            }catch(InvalidSelectionException | NoGenresSelectedException e){
+                if(!selectedGenres.contains(allGenres.get(selection - 1))) selectedGenres.addGenre(allGenres.get(selection - 1));
+                else throw new GenreAlreadySelectedException();
+            }catch(InvalidSelectionException | NoGenresSelectedException | GenreAlreadySelectedException e){
                 printErrorMessage(e.getLocalizedMessage());
             }
         }
@@ -78,11 +115,11 @@ public class SubscribeToBookClubCLI extends GeneralPageCLI implements PageCLI {
     }
 
     private void showBookClubInfo(BookClubBean bookClub){
-        Printer.println("Nome: " + bookClub.getName() + " - " + bookClub.getNumberOfSubscribers() + " iscritti - " + "Proprietario: " + bookClub.getOwner());
+        Printer.println("Nome: " + bookClub.getName() + " - Iscritti: " + bookClub.getNumberOfSubscribers() + "/" + bookClub.getCapacity() + " - Proprietario: " + bookClub.getOwner());
         for(Genre genre: bookClub.getGenres()){
             Printer.print(genre.toString() + ", ");
         }
         Printer.println("\n----------------------------------------");
     }
-    }
 }
+

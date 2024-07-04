@@ -9,4 +9,6 @@ public interface BookClubDAO {
     public void createBookClub(BookClubEntity bookClub);
 
     public ArrayList<BookClubEntity> getBookClubsByGenres(ArrayList<Genre> genres);
+
+    public BookClubEntity getBookClubByName(String name);
 }

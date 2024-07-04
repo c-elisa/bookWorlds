@@ -15,4 +15,9 @@ public class BookClubDAOJDBC implements BookClubDAO{
     public ArrayList<BookClubEntity> getBookClubsByGenres(ArrayList<Genre> genres) {
         return null;
     }
+
+    @Override
+    public BookClubEntity getBookClubByName(String name) {
+        return null;
+    }
 }
