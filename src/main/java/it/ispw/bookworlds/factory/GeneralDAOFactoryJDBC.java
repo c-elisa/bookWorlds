@@ -1,9 +1,6 @@
 package it.ispw.bookworlds.factory;
 
-import it.ispw.bookworlds.dao.BookClubDAO;
-import it.ispw.bookworlds.dao.LoginDAO;
-import it.ispw.bookworlds.dao.LoginDaoJDBC;
-import it.ispw.bookworlds.dao.SubscriptionRequestDAO;
+import it.ispw.bookworlds.dao.*;
 
 public class GeneralDAOFactoryJDBC extends GeneralDAOFactory {
     @Override
@@ -16,6 +13,11 @@ public class GeneralDAOFactoryJDBC extends GeneralDAOFactory {
 
     @Override
     public SubscriptionRequestDAO createSubscriptionRequestDAO() {
+        return null;
+    }
+
+    @Override
+    public SubscribersDAO createSubscribersDAO() {
         return null;
     }
 }

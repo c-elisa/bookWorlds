@@ -2,6 +2,8 @@ package it.ispw.bookworlds.view.cli;
 
 import it.ispw.bookworlds.bean.CredentialsBean;
 import it.ispw.bookworlds.controller.graphic.cli.LoginGraphicController;
+import it.ispw.bookworlds.exceptions.IncorrectPasswordException;
+import it.ispw.bookworlds.exceptions.UsernameNotFoundException;
 import it.ispw.bookworlds.utils.Printer;
 
 public class LoginPageCLI extends GeneralPageCLI implements PageCLI{
@@ -20,6 +22,11 @@ public class LoginPageCLI extends GeneralPageCLI implements PageCLI{
         CredentialsBean creds = new CredentialsBean(username, password);
         LoginGraphicController controller = new LoginGraphicController();
 
-        controller.login(creds);
+        try {
+            controller.login(creds);
+        } catch (UsernameNotFoundException | IncorrectPasswordException e) {
+            Printer.printError(e.getLocalizedMessage());
+            display();
+        }
     }
 }

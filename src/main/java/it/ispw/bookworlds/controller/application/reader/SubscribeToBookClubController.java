@@ -5,6 +5,7 @@ import it.ispw.bookworlds.bean.GenresListBean;
 import it.ispw.bookworlds.bean.SubscriptionRequestBean;
 import it.ispw.bookworlds.controller.application.GenericController;
 import it.ispw.bookworlds.dao.BookClubDAO;
+import it.ispw.bookworlds.dao.SubscribersDAO;
 import it.ispw.bookworlds.dao.SubscriptionRequestDAO;
 import it.ispw.bookworlds.factory.GeneralDAOFactory;
 import it.ispw.bookworlds.model.BookClubEntity;
@@ -42,12 +43,13 @@ public class SubscribeToBookClubController extends GenericController {
     public void makeSubscriptionRequest(SubscriptionRequestBean request){
         BookClubDAO bookClubDAO = GeneralDAOFactory.getInstance().createBookClubDAO();
         SubscriptionRequestDAO subscriptionRequestDAO = GeneralDAOFactory.getInstance().createSubscriptionRequestDAO();
+        SubscribersDAO subscribersDAO = GeneralDAOFactory.getInstance().createSubscribersDAO();
 
         BookClubEntity bookClub = bookClubDAO.getBookClubByName(request.getBookClubName());
 
-        if(bookClub.isFull()){
-            request.setState(RequestState.REJECTED);
-        }
+        if(bookClub.isFull()) request.setState(RequestState.REJECTED);
+        else if(subscribersDAO.isSubscriber(request.getReaderUsername(), request.getBookClubName())
+                || subscriptionRequestDAO.hasAlreadySentRequest(request.getBookClubName(), request.getReaderUsername())) request.setState(RequestState.DUPLICATE);
         else {
             request.setState(RequestState.PENDING);
             SubscriptionRequestEntity newRequest = new SubscriptionRequestEntity(request);

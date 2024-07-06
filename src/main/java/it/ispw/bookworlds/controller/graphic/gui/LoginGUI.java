@@ -3,7 +3,9 @@ package it.ispw.bookworlds.controller.graphic.gui;
 import it.ispw.bookworlds.bean.CredentialsBean;
 import it.ispw.bookworlds.bean.SessionBean;
 import it.ispw.bookworlds.controller.application.LoginController;
+import it.ispw.bookworlds.exceptions.IncorrectPasswordException;
 import it.ispw.bookworlds.exceptions.SessionNotFoundException;
+import it.ispw.bookworlds.exceptions.UsernameNotFoundException;
 import it.ispw.bookworlds.utils.SessionManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -22,6 +24,8 @@ public class LoginGUI extends GenericGUI{
     @FXML
     private Label errorLabel;
 
+    public LoginGUI(){}
+
     @FXML
     public void login(){
         //Istanzia il nuovo bean a partire dalle credenziali inserite
@@ -30,17 +34,11 @@ public class LoginGUI extends GenericGUI{
         LoginController controller = new LoginController();
 
         try{
-            if(controller.login(creds)){
-                if(SessionManager.getAccountBySessionId(SessionBean.getSessionId()).getRole()==CURATOR) changePage(PagesGUI.CURATOR_HOMEPAGE);
-                else changePage(PagesGUI.READER_HOMEPAGE);
-            }
-            else{
-                errorLabel.setText("Credenziali non valide, riprovare");
-                usernameField.setText("username");
-                passwordField.setText("password");
-            }
-        }catch(SessionNotFoundException e){
-            errorLabel.setText(e.getLocalizedMessage());
+            controller.login(creds);
+            if(SessionManager.getAccountBySessionId(SessionBean.getSessionId()).getRole()==CURATOR) changePage(PagesGUI.CURATOR_HOMEPAGE);
+            else changePage(PagesGUI.READER_HOMEPAGE);
+        } catch(SessionNotFoundException | UsernameNotFoundException | IncorrectPasswordException e){
+            errorLabel.setText(e.getLocalizedMessage() + "\n Riprovare.");
         }
 
     }

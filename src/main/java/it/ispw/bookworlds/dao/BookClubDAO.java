@@ -10,5 +10,10 @@ public interface BookClubDAO {
 
     public ArrayList<BookClubEntity> getBookClubsByGenres(ArrayList<Genre> genres);
 
+    public ArrayList<BookClubEntity> getBookClubsByOwner(String name);
+
     public BookClubEntity getBookClubByName(String name);
+
+    public void addSubscriber(String name);
+
 }

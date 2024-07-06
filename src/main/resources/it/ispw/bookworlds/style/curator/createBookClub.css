@@ -1,0 +1,112 @@
+@font-face{
+    font-family: 'Italiana';
+    src: url('../fonts/Italiana-Regular.ttf');
+}
+@font-face{
+    font-family: 'Epilogue';
+    src: url('../fonts/Epilogue-Light.ttf');
+}
+
+#appTitle {
+    -fx-font-family: "Italiana";
+    -fx-font-size: 45px;
+    -fx-effect: dropshadow(gaussian, black, 15, 0, 2, 2);
+}
+
+#modeLabel{
+    -fx-font-family: "Italiana";
+    -fx-font-size: 25px;
+    -fx-effect: dropshadow(gaussian, black, 15, 0, 2, 2);
+}
+
+#actionTitle{
+    -fx-font-family: "Epilogue";
+    -fx-font-size: 20px;
+    -fx-text-fill: #59351F;
+    -fx-font-weight: bold;
+}
+
+#label2{
+    -fx-font-family: "Epilogue";
+    -fx-font-size: 15px;
+    -fx-text-fill: #59351F;
+    -fx-font-weight: bold;
+}
+
+#nameTextField{
+    -fx-font-family: "Epilogue";
+    -fx-text-fill: #9a633e;
+    -fx-prompt-text-fill: #9a633e;
+    -fx-font-size: 18px;
+    -fx-background-color: white;
+    -fx-border-color: #9a633e;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+}
+
+#capacityTextField{
+    -fx-font-family: "Epilogue";
+    -fx-text-fill: #9a633e;
+    -fx-prompt-text-fill: #9a633e;
+    -fx-font-size: 18px;
+    -fx-background-color: white;
+    -fx-border-color: #9a633e;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+}
+
+#genresList{
+    -fx-background-color: #9a633e;
+}
+
+.button{
+    -fx-font-family: "Epilogue";
+    -fx-background-color: #59351F;
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+    -fx-background-radius: 12px;
+    -fx-padding: 10px;
+}
+
+.button:hover{
+    -fx-cursor: hand;
+    -fx-background-color: #c49372;
+    -fx-text-fill: #59351F;
+    -fx-border-color: #59351F;
+    -fx-border-radius: 12px;
+    -fx-border-width: 3px;
+}
+
+.list-cell{
+    -fx-font-family: "Epilogue";
+    -fx-height: 35px;
+    -fx-text-weight: bold;
+}
+
+.list-cell:odd{
+    -fx-background-color: #59351F;
+    -fx-text-fill: white;
+}
+
+.list-cell:even{
+    -fx-background-color: #9a633e;
+    -fx-text-fill: #59351F;
+}
+
+.list-cell:selected{
+    -fx-background-color: white;
+    -fx-text-fill: #9a633e;
+}
+
+.list-cell:empty{
+    -fx-opacity: 0;
+}
+
+#errorLabel{
+    -fx-font-family: "Epilogue";
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #d00101;
+}

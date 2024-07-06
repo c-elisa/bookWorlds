@@ -2,6 +2,7 @@ package it.ispw.bookworlds.view.cli.curator;
 
 import it.ispw.bookworlds.controller.graphic.cli.curator.CuratorHomepageGraphicController;
 import it.ispw.bookworlds.exceptions.InvalidSelectionException;
+import it.ispw.bookworlds.exceptions.SessionNotFoundException;
 import it.ispw.bookworlds.utils.Printer;
 import it.ispw.bookworlds.view.cli.GeneralPageCLI;
 import it.ispw.bookworlds.view.cli.PageCLI;
@@ -36,7 +37,7 @@ public class CuratorHomepageCLI extends GeneralPageCLI implements PageCLI {
                     case 4 -> controller.logout();
                     default -> throw new InvalidSelectionException();
                 }
-            }catch(InvalidSelectionException e){
+            }catch(InvalidSelectionException | SessionNotFoundException e){
                 printErrorMessage(e.getLocalizedMessage());
             }
         }

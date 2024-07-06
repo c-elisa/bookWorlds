@@ -3,7 +3,10 @@ package it.ispw.bookworlds.controller.graphic.gui;
 public enum PagesGUI {
     LOGIN("/it/ispw/bookworlds/gui/login.fxml"),
     CURATOR_HOMEPAGE("/it/ispw/bookworlds/gui/curator/homepage.fxml"),
-    READER_HOMEPAGE("/it/ispw/bookworlds/gui/reader/homepage.fxml");
+    READER_HOMEPAGE("/it/ispw/bookworlds/gui/reader/homepage.fxml"),
+    CREATE_BOOK_CLUB("/it/ispw/bookworlds/gui/curator/createBookClub.fxml"),
+    SUBSCRIBE_TO_BOOK_CLUB("/it/ispw/bookworlds/gui/reader/subscribeToBookClub.fxml"),
+    MANAGE_SUBSCRIPTION_REQUESTS("/it/ispw/bookworlds/gui/curator/manageSubscriptionRequests.fxml");
 
     private final String path;
 

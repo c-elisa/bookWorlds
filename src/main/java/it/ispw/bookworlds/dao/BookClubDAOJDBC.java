@@ -17,7 +17,17 @@ public class BookClubDAOJDBC implements BookClubDAO{
     }
 
     @Override
+    public ArrayList<BookClubEntity> getBookClubsByOwner(String name) {
+        return null;
+    }
+
+    @Override
     public BookClubEntity getBookClubByName(String name) {
         return null;
+    }
+
+    @Override
+    public void addSubscriber(String name) {
+
     }
 }

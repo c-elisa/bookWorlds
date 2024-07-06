@@ -7,6 +7,8 @@ module it.ispw.bookworlds.bookworlds {
     requires java.desktop;
     requires java.logging;
 
-    opens it.ispw.bookworlds to javafx.fxml;
+    opens it.ispw.bookworlds.controller.graphic.gui to javafx.fxml;
+    opens it.ispw.bookworlds.controller.graphic.gui.curator to javafx.fxml;
+    opens it.ispw.bookworlds.controller.graphic.gui.reader to javafx.fxml;
     exports it.ispw.bookworlds;
 }

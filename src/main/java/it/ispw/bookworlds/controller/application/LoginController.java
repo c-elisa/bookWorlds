@@ -11,17 +11,13 @@ import it.ispw.bookworlds.utils.Printer;
 import it.ispw.bookworlds.utils.SessionManager;
 
 public class LoginController {
-    public boolean login(CredentialsBean creds){
+    public boolean login(CredentialsBean creds) throws IncorrectPasswordException, UsernameNotFoundException{
         LoginDAO loginDao = GeneralDAOFactory.getInstance().createLoginDao();
         AccountEntity account;
-        try {
-            account = loginDao.login(creds.getUsername(), creds.getPassword());
-            SessionManager.addSession(account);
-            SessionBean.setSessionId(account.getCode());
-            return true;
-        } catch (IncorrectPasswordException | UsernameNotFoundException e) {
-            Printer.printError(e);
-            return false;
-        }
+
+        account = loginDao.login(creds.getUsername(), creds.getPassword());
+        SessionManager.addSession(account);
+        SessionBean.setSessionId(account.getCode());
+        return true;
     }
 }

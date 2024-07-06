@@ -1,6 +1,8 @@
 package it.ispw.bookworlds.view.cli;
 
+import it.ispw.bookworlds.exceptions.NotANumberException;
 import it.ispw.bookworlds.utils.Printer;
+import it.ispw.bookworlds.utils.Validator;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -32,8 +34,10 @@ public class GeneralPageCLI {
     protected int requestInt(String message){
         while(true){
             try {
-                return Integer.parseInt(requestString(message));
-            } catch(NumberFormatException e){
+                String input = requestString(message);
+                Validator.validateInt(input);
+                return Integer.parseInt(input);
+            } catch(NumberFormatException | NotANumberException e){
                 printErrorMessage(e.getLocalizedMessage());
             }
         }

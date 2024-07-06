@@ -11,4 +11,7 @@ public class GeneralDAOFactoryFileSystem extends GeneralDAOFactory {
 
     @Override
     public SubscriptionRequestDAO createSubscriptionRequestDAO() {return SubscriptionRequestDAOFileSystem.getInstance();}
+
+    @Override
+    public SubscribersDAO createSubscribersDAO() {return SubscribersDAOFileSystem.getInstance();}
 }

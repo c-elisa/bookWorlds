@@ -1,5 +1,5 @@
 package it.ispw.bookworlds.model;
 
 public enum RequestState {
-    NO_STATE, PENDING, REJECTED
+    NO_STATE, PENDING, REJECTED, DUPLICATE, ACCEPTED
 }

@@ -38,6 +38,7 @@ public class SubscribeToBookClubGraphicController implements Observer {
         switch(state) {
             case RequestState.PENDING -> view.showUpdate("La richiesta è stata inoltrata con successo.");
             case RequestState.REJECTED -> view.showUpdate("La richiesta è stata respinta.");
+            case RequestState.DUPLICATE -> view.showUpdate("Richiesta duplicata: hai già fatto richiesta a questo club.");
         }
     }
 
