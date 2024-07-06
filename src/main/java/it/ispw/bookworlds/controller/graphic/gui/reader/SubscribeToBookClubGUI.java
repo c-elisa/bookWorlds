@@ -17,10 +17,7 @@ import javafx.scene.control.*;
 import javafx.scene.text.Text;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class SubscribeToBookClubGUI extends GenericGUI implements Initializable, Observer {
     @FXML
@@ -67,31 +64,35 @@ public class SubscribeToBookClubGUI extends GenericGUI implements Initializable,
             errorLabel.setText("Hai selezionato più di 4 generi. Selezionare nuovamente.");
             genresBean.getGenres().clear();
         }
-        else {
-            ArrayList<BookClubBean> bookClubs = controller.findBookClubs(genresBean);
-            list.getItems().clear();
-            for(BookClubBean bean: bookClubs){
-                list.getItems().add(bean.getName());
-            }
-            showButton.setDisable(true);
-            forwardButton.setDisable(false);
-            errorLabel.setText("");
-            addButton.setVisible(false);
+        else displayList();
+    }
 
-            list.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
-                String selection = list.getSelectionModel().getSelectedItem();
-                for(BookClubBean bookClub: bookClubs){
-                    if(Objects.equals(bookClub.getName(), selection)){
-                        String text = "Nome: " + bookClub.getName() + " - Iscritti: " + bookClub.getNumberOfSubscribers() + "/" + bookClub.getCapacity() + " - Proprietario: " + bookClub.getOwner() + "\n";
-                        for(Genre genre: bookClub.getGenres()){
-                            text = text.concat(genre.toString() + ", ");
-                        }
-                        selectedArea.setText(text);
-                        break;
-                    }
-                }
-            });
+    @FXML
+    public void displayList(){
+        SubscribeToBookClubController controller = new SubscribeToBookClubController();
+        List<BookClubBean> bookClubs = controller.findBookClubs(genresBean);
+        list.getItems().clear();
+        for(BookClubBean bean: bookClubs){
+            list.getItems().add(bean.getName());
         }
+        showButton.setDisable(true);
+        forwardButton.setDisable(false);
+        errorLabel.setText("");
+        addButton.setVisible(false);
+
+        list.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
+            String selection = list.getSelectionModel().getSelectedItem();
+            for(BookClubBean bookClub: bookClubs){
+                if(Objects.equals(bookClub.getName(), selection)){
+                    String text = "Nome: " + bookClub.getName() + " - Iscritti: " + bookClub.getNumberOfSubscribers() + "/" + bookClub.getCapacity() + " - Proprietario: " + bookClub.getOwner() + "\n";
+                    for(Genre genre: bookClub.getGenres()){
+                        text = text.concat(genre.toString() + ", ");
+                    }
+                    selectedArea.setText(text);
+                    break;
+                }
+            }
+        });
     }
 
     public void makeRequest(){
@@ -117,6 +118,7 @@ public class SubscribeToBookClubGUI extends GenericGUI implements Initializable,
             case RequestState.PENDING -> alert.setHeaderText("La richiesta è stata inoltrata con successo.");
             case RequestState.REJECTED -> alert.setHeaderText("La richiesta è stata respinta.");
             case RequestState.DUPLICATE -> alert.setHeaderText("Richiesta duplicata: sei già iscritto a questo club del libro.");
+            default -> alert.setHeaderText("Nessuna informazione sulla richiesta.");
         }
 
         Optional<ButtonType> result = alert.showAndWait();

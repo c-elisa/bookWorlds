@@ -13,7 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ManageSubscriptionRequestsGUI extends GenericGUI implements Initializable {
@@ -24,7 +24,7 @@ public class ManageSubscriptionRequestsGUI extends GenericGUI implements Initial
     @FXML
     private Label errorLabel;
 
-    ArrayList<SubscriptionRequestBean> requests;
+    List<SubscriptionRequestBean> requests;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

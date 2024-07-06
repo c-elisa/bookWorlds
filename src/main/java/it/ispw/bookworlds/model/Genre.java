@@ -1,9 +1,8 @@
 package it.ispw.bookworlds.model;
 
-import it.ispw.bookworlds.utils.Printer;
-
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public enum Genre {
     FANTASY,
@@ -31,7 +30,7 @@ public enum Genre {
     HISTORY,
     BUSINESS;
 
-    public static ArrayList<Genre> getAsList(){
+    public static List<Genre> getAsList(){
         return new ArrayList<Genre>(Arrays.asList(Genre.values()));
     }
 

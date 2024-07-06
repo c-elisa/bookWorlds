@@ -2,12 +2,12 @@ package it.ispw.bookworlds.dao;
 
 import it.ispw.bookworlds.model.SubscriptionRequestEntity;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface SubscriptionRequestDAO {
-    public ArrayList<SubscriptionRequestEntity> getRequestsByUsername(String username);
+    public List<SubscriptionRequestEntity> getRequestsByUsername(String username);
 
-    public ArrayList<SubscriptionRequestEntity> getRequestsByBookClubName(String name);
+    public List<SubscriptionRequestEntity> getRequestsByBookClubName(String name);
 
     boolean hasAlreadySentRequest(String bookClubName, String username);
 

@@ -51,7 +51,7 @@ public class BookClubDAOFileSystem implements BookClubDAO {
     }
 
     @Override
-    public ArrayList<BookClubEntity> getBookClubsByGenres(ArrayList<Genre> genres) {
+    public List<BookClubEntity> getBookClubsByGenres(List<Genre> genres) {
         //Lista di tutti i club del libro presenti nel sistema
         ArrayList<BookClubEntity> allBookClubs = new ArrayList<BookClubEntity>();
         // Lista di club del libro da restituire

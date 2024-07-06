@@ -8,7 +8,7 @@ public abstract class Subject {
 
     public abstract void notifyObservers();
 
-    public void attach(Observer obs){observers.add(obs);};
+    public void attach(Observer obs){observers.add(obs);}
 
     public void detach(Observer obs){observers.remove(obs);}
 

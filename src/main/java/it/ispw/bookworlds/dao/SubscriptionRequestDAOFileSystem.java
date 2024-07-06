@@ -8,16 +8,17 @@ import it.ispw.bookworlds.utils.Printer;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class SubscriptionRequestDAOFileSystem implements SubscriptionRequestDAO{
     private static SubscriptionRequestDAOFileSystem instance = null;
-    private final String FILE_PATH = "csv/subscriptionRequests.csv";
+    private final static String FILEPATH = "csv/subscriptionRequests.csv";
     private File fd;
 
     private SubscriptionRequestDAOFileSystem(){
         try{
-            fd = new File(FILE_PATH);
+            fd = new File(FILEPATH);
             if(!fd.exists() && !fd.createNewFile()){ throw new IOException();}
         } catch (IOException | NullPointerException e) {
             Printer.printError(e);
@@ -31,7 +32,7 @@ public class SubscriptionRequestDAOFileSystem implements SubscriptionRequestDAO{
     }
 
     @Override
-    public ArrayList<SubscriptionRequestEntity> getRequestsByUsername(String username) {
+    public List<SubscriptionRequestEntity> getRequestsByUsername(String username) {
         ArrayList<SubscriptionRequestEntity> requests = new ArrayList<>();
 
         try {
@@ -40,7 +41,7 @@ public class SubscriptionRequestDAOFileSystem implements SubscriptionRequestDAO{
             String[] nextRecord;
 
             while((nextRecord = csvReader.readNext()) != null){
-                if(Objects.equals(nextRecord[SubscriptionRequestAttributesOrder.READER_USERNAME.getIndex()], username) && Objects.equals(nextRecord[SubscriptionRequestAttributesOrder.STATE.getIndex()], "PENDING")){
+                if(Objects.equals(nextRecord[SubscriptionRequestAttributesOrder.READER_USERNAME.getIndex()], username) && Objects.equals(nextRecord[SubscriptionRequestAttributesOrder.STATE.getIndex()], RequestState.PENDING.toString())){
                     requests.add(new SubscriptionRequestEntity(
                             nextRecord[SubscriptionRequestAttributesOrder.READER_USERNAME.getIndex()],
                             nextRecord[SubscriptionRequestAttributesOrder.BOOKCLUB_NAME.getIndex()],
@@ -59,7 +60,7 @@ public class SubscriptionRequestDAOFileSystem implements SubscriptionRequestDAO{
     }
 
     @Override
-    public ArrayList<SubscriptionRequestEntity> getRequestsByBookClubName(String name) {
+    public List<SubscriptionRequestEntity> getRequestsByBookClubName(String name) {
         ArrayList<SubscriptionRequestEntity> requests = new ArrayList<>();
 
         try {
@@ -68,7 +69,7 @@ public class SubscriptionRequestDAOFileSystem implements SubscriptionRequestDAO{
             String[] nextRecord;
 
             while((nextRecord = csvReader.readNext()) != null){
-                if(Objects.equals(nextRecord[SubscriptionRequestAttributesOrder.BOOKCLUB_NAME.getIndex()], name) && Objects.equals(nextRecord[SubscriptionRequestAttributesOrder.STATE.getIndex()], "PENDING")){
+                if(Objects.equals(nextRecord[SubscriptionRequestAttributesOrder.BOOKCLUB_NAME.getIndex()], name) && Objects.equals(nextRecord[SubscriptionRequestAttributesOrder.STATE.getIndex()], RequestState.PENDING.toString())){
                     requests.add(new SubscriptionRequestEntity(
                             nextRecord[SubscriptionRequestAttributesOrder.READER_USERNAME.getIndex()],
                             nextRecord[SubscriptionRequestAttributesOrder.BOOKCLUB_NAME.getIndex()],
@@ -95,7 +96,7 @@ public class SubscriptionRequestDAOFileSystem implements SubscriptionRequestDAO{
             while((nextRecord = csvReader.readNext()) != null){
                 if(Objects.equals(nextRecord[SubscriptionRequestAttributesOrder.READER_USERNAME.getIndex()], username)
                         && Objects.equals(nextRecord[SubscriptionRequestAttributesOrder.BOOKCLUB_NAME.getIndex()], bookClubName)
-                && Objects.equals(nextRecord[SubscriptionRequestAttributesOrder.STATE.getIndex()], "PENDING")) return true;
+                && Objects.equals(nextRecord[SubscriptionRequestAttributesOrder.STATE.getIndex()], RequestState.PENDING.toString())) return true;
             }
 
         } catch (CsvValidationException | IOException e) {

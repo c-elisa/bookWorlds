@@ -4,13 +4,14 @@ import it.ispw.bookworlds.model.BookClubEntity;
 import it.ispw.bookworlds.model.Genre;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface BookClubDAO {
     public void createBookClub(BookClubEntity bookClub);
 
-    public ArrayList<BookClubEntity> getBookClubsByGenres(ArrayList<Genre> genres);
+    public List<BookClubEntity> getBookClubsByGenres(List<Genre> genres);
 
-    public ArrayList<BookClubEntity> getBookClubsByOwner(String name);
+    public List<BookClubEntity> getBookClubsByOwner(String name);
 
     public BookClubEntity getBookClubByName(String name);
 

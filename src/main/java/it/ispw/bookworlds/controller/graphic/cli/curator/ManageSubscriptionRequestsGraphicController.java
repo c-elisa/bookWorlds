@@ -4,10 +4,10 @@ import it.ispw.bookworlds.bean.SubscriptionRequestBean;
 import it.ispw.bookworlds.controller.application.curator.ManageSubscriptionRequestsController;
 import it.ispw.bookworlds.exceptions.SessionNotFoundException;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class ManageSubscriptionRequestsGraphicController {
-    public ArrayList<SubscriptionRequestBean> getSubscriptionRequests() throws SessionNotFoundException {
+    public List<SubscriptionRequestBean> getSubscriptionRequests() throws SessionNotFoundException {
         ManageSubscriptionRequestsController controller = new ManageSubscriptionRequestsController();
 
         return controller.retrieveSubscriptionRequests();

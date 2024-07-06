@@ -14,10 +14,11 @@ import it.ispw.bookworlds.model.RequestState;
 import it.ispw.bookworlds.model.SubscriptionRequestEntity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SubscribeToBookClubController extends GenericController {
 
-    public ArrayList<BookClubBean> findBookClubs(GenresListBean selectedGenres){
+    public List<BookClubBean> findBookClubs(GenresListBean selectedGenres){
         ArrayList<BookClubBean> bookClubBeans = new ArrayList<>();
 
         BookClubDAO bookClubDAO = GeneralDAOFactory.getInstance().createBookClubDAO();
@@ -27,7 +28,7 @@ public class SubscribeToBookClubController extends GenericController {
             genres.add(Genre.valueOf(genre));
         }
 
-        ArrayList<BookClubEntity> bookClubsEntities = bookClubDAO.getBookClubsByGenres(genres);
+        List<BookClubEntity> bookClubsEntities = bookClubDAO.getBookClubsByGenres(genres);
         for(BookClubEntity bookClub: bookClubsEntities){
             bookClubBeans.add(new BookClubBean(
                                     bookClub.getName(),

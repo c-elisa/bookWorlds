@@ -8,7 +8,7 @@ import it.ispw.bookworlds.controller.application.reader.SubscribeToBookClubContr
 import it.ispw.bookworlds.model.RequestState;
 import it.ispw.bookworlds.view.cli.reader.SubscribeToBookClubCLI;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class SubscribeToBookClubGraphicController implements Observer {
     private SubscriptionRequestBean subject;
@@ -19,7 +19,7 @@ public class SubscribeToBookClubGraphicController implements Observer {
         return controller.getGenresList();
     }
 
-    public ArrayList<BookClubBean> findBookClubs(GenresListBean selectedGenres){
+    public List<BookClubBean> findBookClubs(GenresListBean selectedGenres){
         SubscribeToBookClubController controller = new SubscribeToBookClubController();
 
         return controller.findBookClubs(selectedGenres);
@@ -39,6 +39,7 @@ public class SubscribeToBookClubGraphicController implements Observer {
             case RequestState.PENDING -> view.showUpdate("La richiesta è stata inoltrata con successo.");
             case RequestState.REJECTED -> view.showUpdate("La richiesta è stata respinta.");
             case RequestState.DUPLICATE -> view.showUpdate("Richiesta duplicata: hai già fatto richiesta a questo club.");
+            default -> view.showUpdate("Nessuna informazione sulla richiesta.");
         }
     }
 

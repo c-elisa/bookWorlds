@@ -22,7 +22,6 @@ public class PageControllerGUI {
             stage.show();
         } catch (Exception e) {
             Printer.printError(e.getMessage());
-            e.printStackTrace();
             System.exit(-1);
         }
     }

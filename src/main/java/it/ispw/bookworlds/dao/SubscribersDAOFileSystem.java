@@ -13,12 +13,12 @@ import java.util.Objects;
 
 public class SubscribersDAOFileSystem implements SubscribersDAO{
     private static SubscribersDAOFileSystem instance = null;
-    private final String FILE_PATH = "csv/subscribers.csv";
+    private final static String FILEPATH = "csv/subscribers.csv";
     private File fd;
 
     private SubscribersDAOFileSystem(){
         try{
-            fd = new File(FILE_PATH);
+            fd = new File(FILEPATH);
             if(!fd.exists() && !fd.createNewFile()){throw new IOException();}
         }catch(IOException | NullPointerException e){
             Printer.printError(e);

@@ -24,8 +24,6 @@ public class LoginGUI extends GenericGUI{
     @FXML
     private Label errorLabel;
 
-    public LoginGUI(){}
-
     @FXML
     public void login(){
         //Istanzia il nuovo bean a partire dalle credenziali inserite

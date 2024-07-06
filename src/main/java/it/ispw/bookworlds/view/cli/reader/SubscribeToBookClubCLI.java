@@ -13,7 +13,6 @@ import it.ispw.bookworlds.utils.Printer;
 import it.ispw.bookworlds.view.cli.GeneralPageCLI;
 import it.ispw.bookworlds.view.cli.PageCLI;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class SubscribeToBookClubCLI extends GeneralPageCLI implements PageCLI {
@@ -47,7 +46,7 @@ public class SubscribeToBookClubCLI extends GeneralPageCLI implements PageCLI {
 
     private boolean makeRequest(){
         BookClubBean selectedBookClub;
-        ArrayList<BookClubBean> bookClubs = controller.findBookClubs(selectedGenres);
+        List<BookClubBean> bookClubs = controller.findBookClubs(selectedGenres);
         showBookClubs(bookClubs);
 
         //seleziona un club del libro dalla lista
@@ -102,7 +101,7 @@ public class SubscribeToBookClubCLI extends GeneralPageCLI implements PageCLI {
         }
     }
 
-    private void showBookClubs(ArrayList<BookClubBean> bookClubBeans){
+    private void showBookClubs(List<BookClubBean> bookClubBeans){
         Printer.println("Club del libro trovati\n");
 
         for(BookClubBean bookClub: bookClubBeans){

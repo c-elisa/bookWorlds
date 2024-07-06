@@ -10,7 +10,6 @@ import it.ispw.bookworlds.utils.Printer;
 import it.ispw.bookworlds.utils.SessionManager;
 import it.ispw.bookworlds.view.cli.curator.CuratorHomepageCLI;
 import it.ispw.bookworlds.view.cli.reader.ReaderHomepageCLI;
-import it.ispw.bookworlds.view.cli.LoginPageCLI;
 
 import static it.ispw.bookworlds.model.Role.CURATOR;
 

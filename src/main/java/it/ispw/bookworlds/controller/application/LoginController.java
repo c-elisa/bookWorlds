@@ -7,7 +7,6 @@ import it.ispw.bookworlds.exceptions.IncorrectPasswordException;
 import it.ispw.bookworlds.exceptions.UsernameNotFoundException;
 import it.ispw.bookworlds.factory.GeneralDAOFactory;
 import it.ispw.bookworlds.model.AccountEntity;
-import it.ispw.bookworlds.utils.Printer;
 import it.ispw.bookworlds.utils.SessionManager;
 
 public class LoginController {

@@ -2,16 +2,16 @@ package it.ispw.bookworlds.dao;
 
 import it.ispw.bookworlds.model.SubscriptionRequestEntity;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class SubscriptionRequestsDAOJDBC implements SubscriptionRequestDAO{
     @Override
-    public ArrayList<SubscriptionRequestEntity> getRequestsByUsername(String username) {
+    public List<SubscriptionRequestEntity> getRequestsByUsername(String username) {
         return null;
     }
 
     @Override
-    public ArrayList<SubscriptionRequestEntity> getRequestsByBookClubName(String name) {
+    public List<SubscriptionRequestEntity> getRequestsByBookClubName(String name) {
         return null;
     }
 

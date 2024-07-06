@@ -8,6 +8,7 @@ public class BookClubNotFullState extends BookClubAbstractState{
 
     @Override
     public void markAsNotFull(BookClubStateMachineImpl stateMachine) {
+        //quando il club del libro non è pieno, se lo si vuole marcare come non pieno, non è necessario eseguire alcuna azione
     }
 
     @Override

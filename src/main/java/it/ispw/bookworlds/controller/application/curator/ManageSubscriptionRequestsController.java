@@ -10,19 +10,19 @@ import it.ispw.bookworlds.factory.GeneralDAOFactory;
 import it.ispw.bookworlds.model.BookClubEntity;
 import it.ispw.bookworlds.model.RequestState;
 import it.ispw.bookworlds.model.SubscriptionRequestEntity;
-import it.ispw.bookworlds.utils.Printer;
 import it.ispw.bookworlds.utils.SessionManager;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ManageSubscriptionRequestsController {
-    public ArrayList<SubscriptionRequestBean> retrieveSubscriptionRequests() throws SessionNotFoundException {
+    public List<SubscriptionRequestBean> retrieveSubscriptionRequests() throws SessionNotFoundException {
         String username = SessionManager.getAccountBySessionId(SessionBean.getSessionId()).getUsername();
 
         SubscriptionRequestDAO subscriptionRequestDAO = GeneralDAOFactory.getInstance().createSubscriptionRequestDAO();
         BookClubDAO bookClubDAO = GeneralDAOFactory.getInstance().createBookClubDAO();
 
-        ArrayList<BookClubEntity> bookClubs = bookClubDAO.getBookClubsByOwner(username);
+        List<BookClubEntity> bookClubs = bookClubDAO.getBookClubsByOwner(username);
 
         ArrayList<SubscriptionRequestEntity> requests = new ArrayList<>();
         for(BookClubEntity bookClub: bookClubs) requests.addAll(subscriptionRequestDAO.getRequestsByBookClubName(bookClub.getName()));
