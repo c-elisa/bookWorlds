@@ -3,7 +3,6 @@ package it.ispw.bookworlds.dao;
 import it.ispw.bookworlds.model.BookClubEntity;
 import it.ispw.bookworlds.model.Genre;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public interface BookClubDAO {

@@ -6,6 +6,7 @@ module it.ispw.bookworlds.bookworlds {
     requires com.opencsv;
     requires java.desktop;
     requires java.logging;
+    requires java.sql;
 
     opens it.ispw.bookworlds.controller.graphic.gui to javafx.fxml;
     opens it.ispw.bookworlds.controller.graphic.gui.curator to javafx.fxml;

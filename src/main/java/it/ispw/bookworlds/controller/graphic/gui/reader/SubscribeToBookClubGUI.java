@@ -57,7 +57,6 @@ public class SubscribeToBookClubGUI extends GenericGUI implements Initializable,
     }
 
     public void showBookClubs(){
-        SubscribeToBookClubController controller = new SubscribeToBookClubController();
 
         if(genresBean.getGenres().isEmpty()) errorLabel.setText("Bisogna selezionare almeno un genere dalla lista.");
         else if(genresBean.getGenres().size() > 4){

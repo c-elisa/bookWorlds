@@ -13,7 +13,7 @@ import java.util.Objects;
 
 public class SubscribersDAOFileSystem implements SubscribersDAO{
     private static SubscribersDAOFileSystem instance = null;
-    private final static String FILEPATH = "csv/subscribers.csv";
+    private static final String FILEPATH = "csv/subscribers.csv";
     private File fd;
 
     private SubscribersDAOFileSystem(){
