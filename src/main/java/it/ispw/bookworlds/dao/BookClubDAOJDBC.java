@@ -24,13 +24,15 @@ public class BookClubDAOJDBC implements BookClubDAO{
     public void createBookClub(BookClubEntity bookClub) {
         Connection connection = ConnectionFactory.getInstance();
 
+
         try{
             Statement statement = connection.createStatement();
-
-            statement.addBatch("INSERT INTO book_club VALUES (" + bookClub.getName() +"," + bookClub.getOwner() + "," + bookClub.getNumberOfSubscribers() + "," + bookClub.getCapacity() + ")");
+            String book_club_query = "INSERT INTO book_club VALUES (" + bookClub.getName() +"," + bookClub.getOwner() + "," + bookClub.getNumberOfSubscribers() + "," + bookClub.getCapacity() + ")";
+            statement.addBatch(book_club_query);
 
             for(Genre g: bookClub.getGenres()) {
-                statement.addBatch("INSERT INTO book_club_genres VALUES (" + bookClub.getName() + "," + g.toString() +")");
+                String query = "INSERT INTO book_club_genres VALUES (" + bookClub.getName() + "," + g.toString() +")";
+                statement.addBatch(query);
             }
             statement.executeBatch();
         } catch (SQLException e) {
