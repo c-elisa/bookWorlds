@@ -50,7 +50,7 @@ public class BookClubDAOJDBC implements BookClubDAO{
     @Override
     public List<BookClubEntity> getBookClubsByGenres(List<Genre> genres) {
         // Lista di club del libro da restituire
-        ArrayList<BookClubEntity> bookClubs = new ArrayList<BookClubEntity>();
+        List<BookClubEntity> bookClubs = new ArrayList<BookClubEntity>();
 
         String query = "SELECT name, owner, numberOfSubscribers, capacity FROM book_club join book_club_genres ON name=bookclub WHERE ";
         for(int i=0; i<genres.size() - 1; i++){
@@ -65,20 +65,7 @@ public class BookClubDAOJDBC implements BookClubDAO{
             }
             ResultSet rs = statement.executeQuery();
 
-            while(rs.next()){
-                bookClubs.add(new BookClubEntity(rs.getString(BookClubAttributesOrder.NAME.getincrementedIndex()), new ArrayList<Genre>(), rs.getInt(BookClubAttributesOrder.NUMBER_OF_SUBSCRIBERS.getincrementedIndex()),
-                        rs.getInt(BookClubAttributesOrder.CAPACITY.getincrementedIndex()), rs.getString(BookClubAttributesOrder.OWNER.getincrementedIndex())));
-            }
-
-            for(BookClubEntity bookClub: bookClubs){
-                statement = connection.prepareStatement(GENRES_QUERY);
-                statement.setString(1, bookClub.getName());
-                rs = statement.executeQuery();
-
-                while(rs.next()){
-                    bookClub.getGenres().add(Genre.valueOf(rs.getString(1)));
-                }
-            }
+            bookClubs = createListFromResultSet(rs);
         } catch (SQLException e) {
             Printer.printError(e.getLocalizedMessage());
             System.exit(-1);
@@ -90,7 +77,7 @@ public class BookClubDAOJDBC implements BookClubDAO{
     @Override
     public List<BookClubEntity> getBookClubsByOwner(String name) {
         // Lista di club del libro da restituire
-        ArrayList<BookClubEntity> bookClubs = new ArrayList<BookClubEntity>();
+        List<BookClubEntity> bookClubs = new ArrayList<BookClubEntity>();
 
         Connection connection = ConnectionFactory.getInstance();
 
@@ -99,20 +86,7 @@ public class BookClubDAOJDBC implements BookClubDAO{
             statement.setString(1, name);
             ResultSet rs = statement.executeQuery();
 
-            while(rs.next()){
-                bookClubs.add(new BookClubEntity(rs.getString(BookClubAttributesOrder.NAME.getincrementedIndex()), new ArrayList<Genre>(), rs.getInt(BookClubAttributesOrder.NUMBER_OF_SUBSCRIBERS.getincrementedIndex()),
-                        rs.getInt(BookClubAttributesOrder.CAPACITY.getincrementedIndex()), rs.getString(BookClubAttributesOrder.OWNER.getincrementedIndex())));
-            }
-
-            for(BookClubEntity bookClub: bookClubs){
-                statement = connection.prepareStatement(GENRES_QUERY);
-                statement.setString(1, bookClub.getName());
-                rs = statement.executeQuery();
-
-                while(rs.next()){
-                    bookClub.getGenres().add(Genre.valueOf(rs.getString(1)));
-                }
-            }
+            bookClubs = createListFromResultSet(rs);
         } catch (SQLException e) {
             Printer.printError(e.getLocalizedMessage());
             System.exit(-1);
@@ -126,24 +100,12 @@ public class BookClubDAOJDBC implements BookClubDAO{
         BookClubEntity bookClub = null;
 
         try{
-            List<Genre> bookClubGenres = new ArrayList<>();
 
-            PreparedStatement statement = connection.prepareStatement(GENRES_QUERY);
-            statement.setString(1, name);
+            PreparedStatement statement = connection.prepareStatement("SELECT name, owner, numberOfSubscribers, capacity FROM book_club WHERE name=?");
+            statement.setString(1,name);
             ResultSet rs = statement.executeQuery();
 
-            while(rs.next()){
-                bookClubGenres.add(Genre.valueOf(rs.getString("genre")));
-            }
-
-            statement = connection.prepareStatement("SELECT name, owner, numberOfSubscribers, capacity FROM book_club WHERE name=?");
-            statement.setString(1,name);
-            rs = statement.executeQuery();
-
-            if(rs.next()){
-                bookClub = new BookClubEntity(rs.getString(BookClubAttributesOrder.NAME.getincrementedIndex()), bookClubGenres, rs.getInt(BookClubAttributesOrder.NUMBER_OF_SUBSCRIBERS.getincrementedIndex()),
-                        rs.getInt(BookClubAttributesOrder.CAPACITY.getincrementedIndex()), rs.getString(BookClubAttributesOrder.OWNER.getincrementedIndex()));
-            }
+            bookClub = createListFromResultSet(rs).getFirst();
         } catch (SQLException e) {
             Printer.printError(e.getLocalizedMessage());
             System.exit(-1);
@@ -172,6 +134,25 @@ public class BookClubDAOJDBC implements BookClubDAO{
         }catch (SQLException e) {
             Printer.printError(e.getLocalizedMessage());
             System.exit(-1);
+        }
+    }
+
+    private List<BookClubEntity> createListFromResultSet(ResultSet rs) throws SQLException {
+        List<BookClubEntity> bookClubs = new ArrayList<>();
+        PreparedStatement statement = connection.prepareStatement(GENRES_QUERY);
+
+        while(rs.next()){
+            bookClubs.add(new BookClubEntity(rs.getString(BookClubAttributesOrder.NAME.getincrementedIndex()), new ArrayList<Genre>(), rs.getInt(BookClubAttributesOrder.NUMBER_OF_SUBSCRIBERS.getincrementedIndex()),
+                    rs.getInt(BookClubAttributesOrder.CAPACITY.getincrementedIndex()), rs.getString(BookClubAttributesOrder.OWNER.getincrementedIndex())));
+        }
+
+        for(BookClubEntity bookClub: bookClubs){
+            statement.setString(1, bookClub.getName());
+            rs = statement.executeQuery();
+
+            while(rs.next()){
+                bookClub.getGenres().add(Genre.valueOf(rs.getString(1)));
+            }
         }
     }
 }
