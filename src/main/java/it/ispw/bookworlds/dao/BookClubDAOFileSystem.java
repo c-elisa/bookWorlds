@@ -5,6 +5,7 @@ import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvValidationException;
 import it.ispw.bookworlds.model.BookClubEntity;
 import it.ispw.bookworlds.model.Genre;
+import it.ispw.bookworlds.utils.FileOverwrite;
 import it.ispw.bookworlds.utils.Printer;
 
 import java.io.*;
@@ -169,17 +170,10 @@ public class BookClubDAOFileSystem implements BookClubDAO {
                 }
                 records.add(nextRecord);
             }
+
+            FileOverwrite.writeToFile(fd, records);
         }catch (IOException | CsvValidationException e) {
             Printer.printError(e.getLocalizedMessage());
-        }
-
-        try{
-            CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(fd, false)));
-            csvWriter.writeAll(records);
-            csvWriter.close();
-        } catch (IOException e) {
-            Printer.printError(e);
-            System.exit(-1);
         }
     }
 }

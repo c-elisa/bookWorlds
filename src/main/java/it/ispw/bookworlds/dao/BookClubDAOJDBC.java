@@ -154,5 +154,7 @@ public class BookClubDAOJDBC implements BookClubDAO{
                 bookClub.getGenres().add(Genre.valueOf(rs.getString(1)));
             }
         }
+
+        return bookClubs;
     }
 }

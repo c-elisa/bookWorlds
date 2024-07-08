@@ -4,6 +4,7 @@ import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvValidationException;
 import it.ispw.bookworlds.model.*;
+import it.ispw.bookworlds.utils.FileOverwrite;
 import it.ispw.bookworlds.utils.Printer;
 
 import java.io.*;
@@ -33,23 +34,12 @@ public class SubscriptionRequestDAOFileSystem implements SubscriptionRequestDAO{
 
     @Override
     public List<SubscriptionRequestEntity> getRequestsByUsername(String username) {
-        ArrayList<SubscriptionRequestEntity> requests = new ArrayList<>();
+        List<SubscriptionRequestEntity> requests = new ArrayList<>();
 
         try {
             CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
 
-            String[] nextRecord;
-
-            while((nextRecord = csvReader.readNext()) != null){
-                if(Objects.equals(nextRecord[SubscriptionRequestAttributesOrder.READER_USERNAME.getIndex()], username) && Objects.equals(nextRecord[SubscriptionRequestAttributesOrder.STATE.getIndex()], RequestState.PENDING.toString())){
-                    requests.add(new SubscriptionRequestEntity(
-                            nextRecord[SubscriptionRequestAttributesOrder.READER_USERNAME.getIndex()],
-                            nextRecord[SubscriptionRequestAttributesOrder.BOOKCLUB_NAME.getIndex()],
-                            RequestState.valueOf(nextRecord[SubscriptionRequestAttributesOrder.STATE.getIndex()])
-                    ));
-                }
-            }
-
+            requests = createListFromFile(csvReader, username);
         } catch (CsvValidationException | IOException e) {
             Printer.printError(e);
             System.exit(-1);
@@ -61,23 +51,12 @@ public class SubscriptionRequestDAOFileSystem implements SubscriptionRequestDAO{
 
     @Override
     public List<SubscriptionRequestEntity> getRequestsByBookClubName(String name) {
-        ArrayList<SubscriptionRequestEntity> requests = new ArrayList<>();
+        List<SubscriptionRequestEntity> requests = new ArrayList<>();
 
         try {
             CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
 
-            String[] nextRecord;
-
-            while((nextRecord = csvReader.readNext()) != null){
-                if(Objects.equals(nextRecord[SubscriptionRequestAttributesOrder.BOOKCLUB_NAME.getIndex()], name) && Objects.equals(nextRecord[SubscriptionRequestAttributesOrder.STATE.getIndex()], RequestState.PENDING.toString())){
-                    requests.add(new SubscriptionRequestEntity(
-                            nextRecord[SubscriptionRequestAttributesOrder.READER_USERNAME.getIndex()],
-                            nextRecord[SubscriptionRequestAttributesOrder.BOOKCLUB_NAME.getIndex()],
-                            RequestState.valueOf(nextRecord[SubscriptionRequestAttributesOrder.STATE.getIndex()])
-                    ));
-                }
-            }
-
+            requests = createListFromFile(csvReader, name);
         } catch (CsvValidationException | IOException e) {
             Printer.printError(e);
             System.exit(-1);
@@ -139,16 +118,8 @@ public class SubscriptionRequestDAOFileSystem implements SubscriptionRequestDAO{
                 records.add(nextRecord);
             }
 
+            FileOverwrite.writeToFile(fd, records);
         } catch (CsvValidationException | IOException e) {
-            Printer.printError(e);
-            System.exit(-1);
-        }
-
-        try{
-            CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(fd, false)));
-            csvWriter.writeAll(records);
-            csvWriter.close();
-        } catch (IOException e) {
             Printer.printError(e);
             System.exit(-1);
         }
@@ -180,5 +151,22 @@ public class SubscriptionRequestDAOFileSystem implements SubscriptionRequestDAO{
             Printer.printError(e);
             System.exit(-1);
         }
+    }
+
+    private List<SubscriptionRequestEntity> createListFromFile(CSVReader csvReader, String toCompare) throws CsvValidationException, IOException {
+        List<SubscriptionRequestEntity> requests = new ArrayList<>();
+        String[] nextRecord;
+
+        while((nextRecord = csvReader.readNext()) != null){
+            if(Objects.equals(nextRecord[SubscriptionRequestAttributesOrder.BOOKCLUB_NAME.getIndex()], toCompare) && Objects.equals(nextRecord[SubscriptionRequestAttributesOrder.STATE.getIndex()], RequestState.PENDING.toString())){
+                requests.add(new SubscriptionRequestEntity(
+                        nextRecord[SubscriptionRequestAttributesOrder.READER_USERNAME.getIndex()],
+                        nextRecord[SubscriptionRequestAttributesOrder.BOOKCLUB_NAME.getIndex()],
+                        RequestState.valueOf(nextRecord[SubscriptionRequestAttributesOrder.STATE.getIndex()])
+                ));
+            }
+        }
+
+        return requests;
     }
 }
