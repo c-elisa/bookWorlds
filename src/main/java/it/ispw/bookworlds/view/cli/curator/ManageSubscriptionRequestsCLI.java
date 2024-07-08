@@ -28,7 +28,7 @@ public class ManageSubscriptionRequestsCLI extends GeneralPageCLI implements Pag
                 printRequests(requests);
                 Printer.println("[0] Indietro");
 
-                selection = selectRequest();
+                selectRequest();
                 if (selection == 0) return;
 
                 selectAction();
@@ -55,8 +55,7 @@ public class ManageSubscriptionRequestsCLI extends GeneralPageCLI implements Pag
         }
     }
 
-    public int selectRequest(){
-        int selection;
+    public void selectRequest(){
         while(true){
             try {
                 selection = requestInt("Selezionare richiesta: ");
@@ -66,8 +65,6 @@ public class ManageSubscriptionRequestsCLI extends GeneralPageCLI implements Pag
                 printErrorMessage(e.getLocalizedMessage());
             }
         }
-
-        return selection;
     }
 
     public void printRequests(List<SubscriptionRequestBean> requests){
