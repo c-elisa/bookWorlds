@@ -23,7 +23,7 @@ public class SubscribersDAOJDBC implements SubscribersDAO{
         Connection connection = ConnectionFactory.getInstance();
 
         try{
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM subscribers WHERE bookclub=? AND reader=?");
+            PreparedStatement statement = connection.prepareStatement("SELECT bookclub, reader FROM subscribers WHERE bookclub=? AND reader=?");
             statement.setString(1, bookClub);
             statement.setString(2, reader);
             ResultSet rs = statement.executeQuery();

@@ -13,6 +13,8 @@ import java.util.List;
 public class ManageSubscriptionRequestsCLI extends GeneralPageCLI implements PageCLI {
     private ManageSubscriptionRequestsGraphicController controller = new ManageSubscriptionRequestsGraphicController();
     private List<SubscriptionRequestBean> requests;
+    private int selection;
+
     @Override
     public void display() {
 
@@ -26,27 +28,31 @@ public class ManageSubscriptionRequestsCLI extends GeneralPageCLI implements Pag
                 printRequests(requests);
                 Printer.println("[0] Indietro");
 
-                int selection = selectRequest();
+                selection = selectRequest();
                 if (selection == 0) return;
 
-                while(true) {
-                    try {
-                        int action = requestInt("[1] Accetta richiesta\t[2] Rifiuta richiesta\nSelezionare --> ");
-                        switch (action) {
-                            case 1 -> controller.acceptRequest(requests.get(selection - 1));
-                            case 2 -> controller.rejectRequest(requests.get(selection - 1));
-                            default -> throw new InvalidSelectionException();
-                        }
-                        break;
-                    }catch(InvalidSelectionException e){
-                        printErrorMessage(e.getLocalizedMessage());
-                    }
-                }
+                selectAction();
             }
         } catch (SessionNotFoundException e) {
             printErrorMessage(e.getLocalizedMessage());
         }
 
+    }
+
+    public void selectAction(){
+        while(true) {
+            try {
+                int action = requestInt("[1] Accetta richiesta\t[2] Rifiuta richiesta\nSelezionare --> ");
+                switch (action) {
+                    case 1 -> controller.acceptRequest(requests.get(selection - 1));
+                    case 2 -> controller.rejectRequest(requests.get(selection - 1));
+                    default -> throw new InvalidSelectionException();
+                }
+                break;
+            }catch(InvalidSelectionException e){
+                printErrorMessage(e.getLocalizedMessage());
+            }
+        }
     }
 
     public int selectRequest(){

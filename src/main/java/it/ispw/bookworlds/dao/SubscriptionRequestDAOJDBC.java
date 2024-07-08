@@ -27,7 +27,7 @@ public class SubscriptionRequestDAOJDBC implements SubscriptionRequestDAO{
         Connection connection = ConnectionFactory.getInstance();
 
         try{
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM subscription_requests WHERE reader=?");
+            PreparedStatement statement = connection.prepareStatement("SELECT bookclub, reader, state FROM subscription_requests WHERE reader=?");
             statement.setString(1, username);
 
             ResultSet rs = statement.executeQuery();
@@ -50,7 +50,7 @@ public class SubscriptionRequestDAOJDBC implements SubscriptionRequestDAO{
         Connection connection = ConnectionFactory.getInstance();
 
         try{
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM subscription_requests WHERE bookclub=?");
+            PreparedStatement statement = connection.prepareStatement("SELECT bookclub, reader, state FROM subscription_requests WHERE bookclub=?");
             statement.setString(1, name);
 
             ResultSet rs = statement.executeQuery();
@@ -72,7 +72,7 @@ public class SubscriptionRequestDAOJDBC implements SubscriptionRequestDAO{
         Connection connection = ConnectionFactory.getInstance();
 
         try{
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM subscription_requests WHERE bookclub=? AND reader=? AND state=?");
+            PreparedStatement statement = connection.prepareStatement("SELECT bookclub, reader, state FROM subscription_requests WHERE bookclub=? AND reader=? AND state=?");
             statement.setString(1, bookClubName);
             statement.setString(2, username);
             statement.setString(3, String.valueOf(RequestState.PENDING));
