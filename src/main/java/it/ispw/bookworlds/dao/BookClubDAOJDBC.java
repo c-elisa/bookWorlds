@@ -12,8 +12,11 @@ import java.util.List;
 public class BookClubDAOJDBC implements BookClubDAO{
     private static BookClubDAOJDBC instance = null;
     private static final String GENRES_QUERY = "SELECT genre FROM book_club_genres WHERE bookclub=?";
+    Connection connection;
 
-    private BookClubDAOJDBC(){}
+    private BookClubDAOJDBC(){
+        connection = ConnectionFactory.getInstance();
+    }
 
     public static BookClubDAOJDBC getInstance(){
         if(instance == null) instance = new BookClubDAOJDBC();
@@ -22,8 +25,6 @@ public class BookClubDAOJDBC implements BookClubDAO{
 
     @Override
     public void createBookClub(BookClubEntity bookClub) {
-        Connection connection = ConnectionFactory.getInstance();
-
         try{
             PreparedStatement statement = connection.prepareStatement("INSERT INTO book_club VALUES (?,?,?,?)");
             statement.setString(1, bookClub.getName());
@@ -50,8 +51,6 @@ public class BookClubDAOJDBC implements BookClubDAO{
     public List<BookClubEntity> getBookClubsByGenres(List<Genre> genres) {
         // Lista di club del libro da restituire
         ArrayList<BookClubEntity> bookClubs = new ArrayList<BookClubEntity>();
-
-        Connection connection = ConnectionFactory.getInstance();
 
         String query = "SELECT name, owner, numberOfSubscribers, capacity FROM book_club join book_club_genres ON name=bookclub WHERE ";
         for(int i=0; i<genres.size() - 1; i++){
@@ -125,7 +124,6 @@ public class BookClubDAOJDBC implements BookClubDAO{
     @Override
     public BookClubEntity getBookClubByName(String name) {
         BookClubEntity bookClub = null;
-        Connection connection = ConnectionFactory.getInstance();
 
         try{
             List<Genre> bookClubGenres = new ArrayList<>();
@@ -156,7 +154,6 @@ public class BookClubDAOJDBC implements BookClubDAO{
 
     @Override
     public void addSubscriber(String name) {
-        Connection connection = ConnectionFactory.getInstance();
 
         try{
             PreparedStatement statement = connection.prepareStatement("SELECT numberOfSubscribers FROM book_club WHERE name=?");
