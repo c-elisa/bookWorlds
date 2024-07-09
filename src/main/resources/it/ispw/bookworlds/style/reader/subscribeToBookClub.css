@@ -60,16 +60,11 @@
     -fx-font-family: "Epilogue";
     -fx-height: 35px;
     -fx-text-weight: bold;
-}
-
-.list-cell:odd{
-    -fx-background-color: #59351F;
+    -fx-background-color: #9a633e;
     -fx-text-fill: white;
-}
-
-.list-cell:even{
-    -fx-background-color: #d5ae99;
-    -fx-text-fill: #59351F;
+    -fx-border-color: #59351F;
+    -fx-border-width: 3px;
+    -fx-border-style: solid;
 }
 
 .list-cell:selected{
