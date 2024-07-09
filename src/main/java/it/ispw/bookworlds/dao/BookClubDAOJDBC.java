@@ -79,8 +79,6 @@ public class BookClubDAOJDBC implements BookClubDAO{
         // Lista di club del libro da restituire
         List<BookClubEntity> bookClubs = new ArrayList<BookClubEntity>();
 
-        Connection connection = ConnectionFactory.getInstance();
-
         try{
             PreparedStatement statement = connection.prepareStatement("SELECT name, owner, numberOfSubscribers, capacity FROM book_club WHERE owner=?");
             statement.setString(1, name);

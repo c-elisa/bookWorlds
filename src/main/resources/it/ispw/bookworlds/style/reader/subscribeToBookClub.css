@@ -67,7 +67,7 @@
     -fx-border-style: solid;
 }
 
-.list-cell:selected{
+.list-cell:hover{
     -fx-background-color: white;
     -fx-text-fill: #9a633e;
 }

@@ -9,7 +9,8 @@ import it.ispw.bookworlds.view.cli.curator.ManageSubscriptionRequestsCLI;
 
 public class CuratorHomepageGraphicController {
     public void createBookClub(){changePage(new CreateBookClubCLI());}
-    public void manageBookClubs(){}
+    public void manageBookClubs(){//è vuoto
+         }
     public void manageSubscriptionRequests(){changePage(new ManageSubscriptionRequestsCLI());}
     public void logout() throws SessionNotFoundException {
         LogoutController controller = new LogoutController();
