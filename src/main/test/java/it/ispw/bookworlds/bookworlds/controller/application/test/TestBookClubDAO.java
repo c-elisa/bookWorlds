@@ -1,4 +1,4 @@
-package it.ispw.bookworlds.bookworlds.controller.application;
+package it.ispw.bookworlds.bookworlds.controller.application.test;
 
 import it.ispw.bookworlds.dao.BookClubDAO;
 import it.ispw.bookworlds.factory.GeneralDAOFactory;

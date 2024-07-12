@@ -1,7 +1,6 @@
 package it.ispw.bookworlds.controller.graphic.gui.reader;
 
 import it.ispw.bookworlds.controller.application.reader.UnsubscribeFromBookClubController;
-import it.ispw.bookworlds.controller.graphic.cli.reader.UnsubscribeFromBookClubGraphicController;
 import it.ispw.bookworlds.controller.graphic.gui.GenericGUI;
 import it.ispw.bookworlds.controller.graphic.gui.PagesGUI;
 import it.ispw.bookworlds.exceptions.BookClubsNotFound;
