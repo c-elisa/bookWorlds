@@ -13,8 +13,8 @@ import java.util.List;
 
 public class SubscribersDAOJDBC implements SubscribersDAO{
     private static SubscribersDAOJDBC instance = null;
-    private final static String REMOVEQUERY = "DELETE FROM subscribers WHERE bookclub=? AND reader=?";
-    private final static String ADDQUERY = "INSERT INTO subscribers VALUES (?,?)";
+    private static final String REMOVEQUERY = "DELETE FROM subscribers WHERE bookclub=? AND reader=?";
+    private static final String ADDQUERY = "INSERT INTO subscribers VALUES (?,?)";
 
     private SubscribersDAOJDBC(){}
 
