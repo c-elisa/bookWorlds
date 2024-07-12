@@ -4,10 +4,7 @@ import it.ispw.bookworlds.bean.BookClubBean;
 import it.ispw.bookworlds.bean.GenresListBean;
 import it.ispw.bookworlds.bean.SubscriptionRequestBean;
 import it.ispw.bookworlds.controller.graphic.cli.reader.SubscribeToBookClubGraphicController;
-import it.ispw.bookworlds.exceptions.GenreAlreadySelectedException;
-import it.ispw.bookworlds.exceptions.InvalidSelectionException;
-import it.ispw.bookworlds.exceptions.NoGenresSelectedException;
-import it.ispw.bookworlds.exceptions.SessionNotFoundException;
+import it.ispw.bookworlds.exceptions.*;
 import it.ispw.bookworlds.model.Genre;
 import it.ispw.bookworlds.utils.Printer;
 import it.ispw.bookworlds.view.cli.GeneralPageCLI;
@@ -33,8 +30,13 @@ public class SubscribeToBookClubCLI extends GeneralPageCLI implements PageCLI {
         selectGenres();
 
         while(true){
-            if(makeRequest()) {
-                controller.makeSubscriptionRequest(request);
+            try {
+                if(makeRequest()) {
+                    controller.makeSubscriptionRequest(request);
+                    break;
+                }
+            } catch (NoBookClubsFoundException e) {
+                printErrorMessage(e.getLocalizedMessage());
                 break;
             }
         }
@@ -44,7 +46,7 @@ public class SubscribeToBookClubCLI extends GeneralPageCLI implements PageCLI {
         Printer.println(message);
     }
 
-    private boolean makeRequest(){
+    private boolean makeRequest() throws NoBookClubsFoundException {
         BookClubBean selectedBookClub;
         List<BookClubBean> bookClubs = controller.findBookClubs(selectedGenres);
         showBookClubs(bookClubs);

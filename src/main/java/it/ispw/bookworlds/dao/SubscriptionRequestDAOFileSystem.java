@@ -143,14 +143,30 @@ public class SubscriptionRequestDAOFileSystem implements SubscriptionRequestDAO{
             System.exit(-1);
         }
 
-        try{
-            CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(fd, false)));
-            csvWriter.writeAll(records);
-            csvWriter.close();
-        } catch (IOException e) {
+        FileOverwrite.writeToFile(fd, records);
+    }
+
+    @Override
+    public void deleteSubscriptionRequests(String username) {
+        List<String[]> records = new ArrayList<>();
+
+        try {
+            CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)));
+
+            String[] nextRecord;
+
+            while((nextRecord = csvReader.readNext()) != null){
+                if(!Objects.equals(nextRecord[SubscriptionRequestAttributesOrder.READER_USERNAME.getIndex()], username) ||
+                        (Objects.equals(nextRecord[SubscriptionRequestAttributesOrder.READER_USERNAME.getIndex()], username)
+                                && Objects.equals(nextRecord[SubscriptionRequestAttributesOrder.STATE.getIndex()], "PENDING"))) records.add(nextRecord);
+            }
+
+        } catch (CsvValidationException | IOException e) {
             Printer.printError(e);
             System.exit(-1);
         }
+
+        FileOverwrite.writeToFile(fd, records);
     }
 
     private List<SubscriptionRequestEntity> createListFromFile(CSVReader csvReader, String toCompare) throws CsvValidationException, IOException {

@@ -4,7 +4,8 @@ import it.ispw.bookworlds.bean.BookClubBean;
 import it.ispw.bookworlds.bean.GenresListBean;
 import it.ispw.bookworlds.bean.SubscriptionRequestBean;
 import it.ispw.bookworlds.bean.observer.Observer;
-import it.ispw.bookworlds.controller.application.reader.SubscribeToBookClubController;
+import it.ispw.bookworlds.controller.application.SubscribeToBookClubController;
+import it.ispw.bookworlds.exceptions.NoBookClubsFoundException;
 import it.ispw.bookworlds.model.RequestState;
 import it.ispw.bookworlds.view.cli.reader.SubscribeToBookClubCLI;
 
@@ -19,7 +20,7 @@ public class SubscribeToBookClubGraphicController implements Observer {
         return controller.getGenresList();
     }
 
-    public List<BookClubBean> findBookClubs(GenresListBean selectedGenres){
+    public List<BookClubBean> findBookClubs(GenresListBean selectedGenres) throws NoBookClubsFoundException {
         SubscribeToBookClubController controller = new SubscribeToBookClubController();
 
         return controller.findBookClubs(selectedGenres);

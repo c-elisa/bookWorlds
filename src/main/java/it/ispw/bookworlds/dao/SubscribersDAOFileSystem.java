@@ -3,11 +3,13 @@ package it.ispw.bookworlds.dao;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvValidationException;
+import it.ispw.bookworlds.exceptions.BookClubsNotFound;
+import it.ispw.bookworlds.exceptions.NoBookClubsFoundException;
+import it.ispw.bookworlds.utils.FileOverwrite;
 import it.ispw.bookworlds.utils.Printer;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -36,11 +38,7 @@ public class SubscribersDAOFileSystem implements SubscribersDAO{
             String[] nextRecord;
 
             while((nextRecord = csvReader.readNext())!=null){
-                if(Objects.equals(nextRecord[0], bookClub)){
-                    for(int i=1; i< nextRecord.length; i++){
-                        if(Objects.equals(nextRecord[i], reader)) return true;
-                    }
-                }
+                if(Objects.equals(nextRecord[0], bookClub) && Objects.equals(nextRecord[1], reader)) return true;
             }
         }catch (IOException | CsvValidationException e) {
             Printer.printError(e.getLocalizedMessage());
@@ -50,30 +48,50 @@ public class SubscribersDAOFileSystem implements SubscribersDAO{
     }
 
     public void addSubscriber(String bookClub, String reader){
+
+        try(CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(fd, true)))){
+            ArrayList<String> data = new ArrayList<String>();
+            data.add(bookClub);
+            data.add(reader);
+            csvWriter.writeNext(data.toArray(new String[0]));
+        }catch(IOException e){
+            Printer.printError(e.getLocalizedMessage());
+            System.exit(-1);
+        }
+    }
+
+    @Override
+    public void removeSubscriber(String bookClub, String reader) {
         List<String[]> records = new ArrayList<>();
 
         try(CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)))){
             String[] nextRecord;
 
             while((nextRecord = csvReader.readNext())!=null){
-                if(Objects.equals(nextRecord[0], bookClub)){
-                    String[] newRecord = Arrays.copyOf(nextRecord, nextRecord.length + 1);
-                    newRecord[nextRecord.length] = reader;
-                    records.add(newRecord);
-                }
-                else records.add(nextRecord);
+                if(!Objects.equals(nextRecord[0], bookClub) && !Objects.equals(nextRecord[1], reader)) records.add(nextRecord);
             }
+
+            FileOverwrite.writeToFile(fd, records);
         }catch (IOException | CsvValidationException e) {
             Printer.printError(e.getLocalizedMessage());
         }
+    }
 
-        try{
-            CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(fd, false)));
-            csvWriter.writeAll(records);
-            csvWriter.close();
-        } catch (IOException e) {
-            Printer.printError(e);
-            System.exit(-1);
+    @Override
+    public List<String> getReaderBookClubs(String reader) throws BookClubsNotFound {
+        List<String> bookClubs = new ArrayList<>();
+
+        try(CSVReader csvReader = new CSVReader((new BufferedReader(new FileReader(fd))))){
+            String[] nextRecord;
+
+            while((nextRecord = csvReader.readNext()) != null){
+                if(Objects.equals(nextRecord[1], reader)) bookClubs.add(nextRecord[0]);
+            }
+        } catch (IOException | CsvValidationException e) {
+            Printer.printError(e.getLocalizedMessage());
         }
+
+        if(bookClubs.isEmpty()) throw new BookClubsNotFound();
+        return bookClubs;
     }
 }

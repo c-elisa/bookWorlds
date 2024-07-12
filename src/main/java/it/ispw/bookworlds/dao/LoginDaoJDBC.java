@@ -35,17 +35,17 @@ public class LoginDaoJDBC implements LoginDAO{
         Connection connection = ConnectionFactory.getInstance();
 
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT code,username,email,role FROM account WHERE username=? AND password=?");
+            PreparedStatement statement = connection.prepareStatement("SELECT code,username,password,email,role FROM account WHERE username=?");
             statement.setString(1, username);
-            statement.setString(2, password);
 
             ResultSet rs = statement.executeQuery();
 
             if(rs.next()){
+                if(!Objects.equals(rs.getString("password"), password)) throw new IncorrectPasswordException();
                 account = new AccountEntity(rs.getInt("code"),
                         rs.getString("username"), rs.getString("email"), Role.getRole(rs.getString("role")));
             }
-            if(account == null) throw new UsernameNotFoundException();
+            else throw new UsernameNotFoundException();
 
         } catch (SQLException e) {
             Printer.printError(e);

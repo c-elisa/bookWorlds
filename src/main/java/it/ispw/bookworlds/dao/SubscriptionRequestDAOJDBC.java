@@ -50,7 +50,7 @@ public class SubscriptionRequestDAOJDBC implements SubscriptionRequestDAO{
         Connection connection = ConnectionFactory.getInstance();
 
         try{
-            PreparedStatement statement = connection.prepareStatement("SELECT bookclub, reader, state FROM subscription_requests WHERE bookclub=?");
+            PreparedStatement statement = connection.prepareStatement("SELECT bookclub, reader, state FROM subscription_requests WHERE bookclub=? AND state='PENDING'");
             statement.setString(1, name);
 
             ResultSet rs = statement.executeQuery();
@@ -99,7 +99,7 @@ public class SubscriptionRequestDAOJDBC implements SubscriptionRequestDAO{
             statement.setString(2, request.getReaderUsername());
             statement.setString(3, String.valueOf(request.getState()));
 
-            statement.executeQuery();
+            statement.execute();
         }catch (SQLException e) {
             Printer.printError(e.getLocalizedMessage());
             System.exit(-1);
@@ -116,7 +116,7 @@ public class SubscriptionRequestDAOJDBC implements SubscriptionRequestDAO{
             statement.setString(2, request.getBookClubName());
             statement.setString(3, request.getReaderUsername());
 
-            statement.executeQuery();
+            statement.executeUpdate();
         }catch (SQLException e) {
             Printer.printError(e.getLocalizedMessage());
             System.exit(-1);
@@ -132,8 +132,23 @@ public class SubscriptionRequestDAOJDBC implements SubscriptionRequestDAO{
             statement.setString(1, request.getBookClubName());
             statement.setString(2, request.getReaderUsername());
 
-            statement.executeQuery();
+            statement.execute();
         }catch (SQLException e) {
+            Printer.printError(e.getLocalizedMessage());
+            System.exit(-1);
+        }
+    }
+
+    @Override
+    public void deleteSubscriptionRequests(String username) {
+        Connection connection = ConnectionFactory.getInstance();
+
+        try{
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM subscription_requests WHERE reader=? AND (state='ACCEPTED' OR state='REJECTED')");
+            statement.setString(1, username);
+
+            statement.execute();
+        } catch (SQLException e) {
             Printer.printError(e.getLocalizedMessage());
             System.exit(-1);
         }

@@ -13,9 +13,11 @@ public class CuratorHomepageCLI extends GeneralPageCLI implements PageCLI {
             HOMEPAGE - Sezione Curatore
             
             [1] Crea un club del libro
-            [2] Gestisci i tuoi club del libro
-            [3] Gestisci richieste di iscrizione
-            [4] Logout
+            [2] Gestisci richieste di iscrizione
+            [3] Aggiungi libro ad una lista di lettura
+            [4] Elimina libro da una lista di lettura
+            [5] Rimuovi un iscritto
+            [6] Logout
             """;
 
     //Controller grafico associato alla View
@@ -32,9 +34,8 @@ public class CuratorHomepageCLI extends GeneralPageCLI implements PageCLI {
                 int selection = requestInt("Seleziona un'opzione:");
                 switch (selection) {
                     case 1 -> controller.createBookClub();
-                    case 2 -> controller.manageBookClubs();
-                    case 3 -> controller.manageSubscriptionRequests();
-                    case 4 -> controller.logout();
+                    case 2 -> controller.manageSubscriptionRequests();
+                    case 6 -> controller.logout();
                     default -> throw new InvalidSelectionException();
                 }
             }catch(InvalidSelectionException | SessionNotFoundException e){

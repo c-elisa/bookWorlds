@@ -1,5 +1,6 @@
 package it.ispw.bookworlds.dao;
 
+import it.ispw.bookworlds.exceptions.BookClubsNotFound;
 import it.ispw.bookworlds.factory.ConnectionFactory;
 import it.ispw.bookworlds.utils.Printer;
 
@@ -7,6 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SubscribersDAOJDBC implements SubscribersDAO{
     private static SubscribersDAOJDBC instance = null;
@@ -46,10 +49,50 @@ public class SubscribersDAOJDBC implements SubscribersDAO{
             statement.setString(1, bookClub);
             statement.setString(2, reader);
 
-            statement.executeQuery();
+            statement.execute();
         } catch (SQLException e) {
             Printer.printError(e.getLocalizedMessage());
             System.exit(-1);
         }
+    }
+
+    @Override
+    public void removeSubscriber(String bookClub, String reader) {
+        Connection connection = ConnectionFactory.getInstance();
+
+        try{
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM subscribers WHERE bookclub=? AND reader=?");
+            statement.setString(1, bookClub);
+            statement.setString(2, reader);
+
+            statement.execute();
+        } catch (SQLException e) {
+            Printer.printError(e.getLocalizedMessage());
+            System.exit(-1);
+        }
+    }
+
+    @Override
+    public List<String> getReaderBookClubs(String reader) throws BookClubsNotFound {
+        Connection connection = ConnectionFactory.getInstance();
+        List<String> bookClubs = new ArrayList<>();
+
+        try{
+            PreparedStatement statement = connection.prepareStatement("SELECT bookclub FROM subscribers WHERE reader=?");
+            statement.setString(1, reader);
+
+            ResultSet rs = statement.executeQuery();
+
+            while(rs.next()){
+                bookClubs.add(rs.getString(1));
+            }
+
+        } catch (SQLException e) {
+            Printer.printError(e.getLocalizedMessage());
+            System.exit(-1);
+        }
+
+        if(bookClubs.isEmpty()) throw new BookClubsNotFound();
+        return bookClubs;
     }
 }

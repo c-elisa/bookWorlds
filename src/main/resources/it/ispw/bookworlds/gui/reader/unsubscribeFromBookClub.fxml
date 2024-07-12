@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../../style/curator/manageSubscriptionRequests.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.ispw.bookworlds.controller.graphic.gui.reader.UnsubscribeFromBookClubGUI">
+   <children>
+      <BorderPane layoutX="2.0" layoutY="8.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: D5AE99;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <HBox maxWidth="1656.0" prefHeight="70.0" prefWidth="1280.0" style="-fx-background-color: A06A45;" BorderPane.alignment="TOP_LEFT">
+               <children>
+                  <Label fx:id="appTitle" alignment="CENTER" contentDisplay="CENTER" prefHeight="85.0" prefWidth="312.0" stylesheets="@../../style/curator/homepage.css" text="BookWorlds" textFill="WHITE">
+                     <font>
+                        <Font size="35.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="modeLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="70.0" prefWidth="554.0" stylesheets="@../../style/curator/homepage.css" text="Modalità Lettore" textFill="WHITE">
+                     <font>
+                        <Font size="35.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="40.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+         </top>
+         <center>
+            <VBox prefHeight="551.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label fx:id="actionTitle" alignment="CENTER" prefHeight="109.0" prefWidth="1280.0" stylesheets="@../../style/curator/createBookClub.css" text="DISISCRIVITI DA UN CLUB DEL LIBRO" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER" prefHeight="469.0" prefWidth="1280.0">
+                     <children>
+                        <ListView fx:id="list" maxWidth="700.0" prefHeight="332.0" prefWidth="700.0" stylesheets="@../../style/reader/subscribeToBookClub.css">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin></ListView>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </center>
+         <bottom>
+            <VBox alignment="TOP_CENTER" maxHeight="81.0" prefHeight="81.0" prefWidth="1280.0" BorderPane.alignment="BOTTOM_CENTER">
+               <children>
+                  <Label fx:id="errorLabel" alignment="CENTER" prefHeight="17.0" prefWidth="511.0" textAlignment="CENTER">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="back" mnemonicParsing="false" onMouseClicked="#goBack" prefHeight="41.0" prefWidth="85.0" text="Indietro">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="deleteRequests" mnemonicParsing="false" onMouseClicked="#unsubscribe" prefHeight="41.0" prefWidth="118.0" text="Disiscriviti">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </bottom>
+      </BorderPane>
+   </children>
+</AnchorPane>

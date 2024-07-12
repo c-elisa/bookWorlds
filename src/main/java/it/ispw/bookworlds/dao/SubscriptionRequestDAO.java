@@ -16,4 +16,6 @@ public interface SubscriptionRequestDAO {
     public void updateSubscriptionRequest(SubscriptionRequestEntity request);
 
     public void deleteSubscriptionRequest(SubscriptionRequestEntity request);
+
+    void deleteSubscriptionRequests(String username);
 }

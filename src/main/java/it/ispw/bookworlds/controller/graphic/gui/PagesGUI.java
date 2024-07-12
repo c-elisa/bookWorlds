@@ -6,7 +6,9 @@ public enum PagesGUI {
     READER_HOMEPAGE("/it/ispw/bookworlds/gui/reader/homepage.fxml"),
     CREATE_BOOK_CLUB("/it/ispw/bookworlds/gui/curator/createBookClub.fxml"),
     SUBSCRIBE_TO_BOOK_CLUB("/it/ispw/bookworlds/gui/reader/subscribeToBookClub.fxml"),
-    MANAGE_SUBSCRIPTION_REQUESTS("/it/ispw/bookworlds/gui/curator/manageSubscriptionRequests.fxml");
+    MANAGE_SUBSCRIPTION_REQUESTS("/it/ispw/bookworlds/gui/curator/manageSubscriptionRequests.fxml"),
+    VIEW_REQUESTS_STATE("/it/ispw/bookworlds/gui/reader/viewRequestsState.fxml"),
+    UNSUBSCRIBE("/it/ispw/bookworlds/gui/reader/unsubscribeFromBookClub.fxml");
 
     private final String path;
 

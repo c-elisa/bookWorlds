@@ -3,6 +3,7 @@ package it.ispw.bookworlds.dao;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvValidationException;
+import it.ispw.bookworlds.exceptions.NoBookClubsFoundException;
 import it.ispw.bookworlds.model.BookClubEntity;
 import it.ispw.bookworlds.model.Genre;
 import it.ispw.bookworlds.utils.FileOverwrite;
@@ -50,7 +51,7 @@ public class BookClubDAOFileSystem implements BookClubDAO {
     }
 
     @Override
-    public List<BookClubEntity> getBookClubsByGenres(List<Genre> genres) {
+    public List<BookClubEntity> getBookClubsByGenres(List<Genre> genres) throws NoBookClubsFoundException {
         //Lista di tutti i club del libro presenti nel sistema
         ArrayList<BookClubEntity> allBookClubs = new ArrayList<BookClubEntity>();
         // Lista di club del libro da restituire
@@ -87,6 +88,7 @@ public class BookClubDAOFileSystem implements BookClubDAO {
             }
         }
 
+        if(bookClubs.isEmpty()) throw new NoBookClubsFoundException();
         return bookClubs;
     }
 
@@ -167,6 +169,27 @@ public class BookClubDAOFileSystem implements BookClubDAO {
                 if(Objects.equals(nextRecord[BookClubAttributesOrder.NAME.getIndex()], name)){
                     nextRecord[BookClubAttributesOrder.NUMBER_OF_SUBSCRIBERS.getIndex()] =
                             String.valueOf(Integer.parseInt(nextRecord[BookClubAttributesOrder.NUMBER_OF_SUBSCRIBERS.getIndex()]) + 1);
+                }
+                records.add(nextRecord);
+            }
+
+            FileOverwrite.writeToFile(fd, records);
+        }catch (IOException | CsvValidationException e) {
+            Printer.printError(e.getLocalizedMessage());
+        }
+    }
+
+    @Override
+    public void removeSubscriber(String name) {
+        List<String[]> records = new ArrayList<>();
+
+        try(CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)))){
+            String[] nextRecord;
+
+            while((nextRecord = csvReader.readNext())!=null){
+                if(Objects.equals(nextRecord[BookClubAttributesOrder.NAME.getIndex()], name)){
+                    nextRecord[BookClubAttributesOrder.NUMBER_OF_SUBSCRIBERS.getIndex()] =
+                            String.valueOf(Integer.parseInt(nextRecord[BookClubAttributesOrder.NUMBER_OF_SUBSCRIBERS.getIndex()]) - 1);
                 }
                 records.add(nextRecord);
             }

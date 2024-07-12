@@ -1,5 +1,6 @@
 package it.ispw.bookworlds.dao;
 
+import it.ispw.bookworlds.exceptions.NoBookClubsFoundException;
 import it.ispw.bookworlds.factory.ConnectionFactory;
 import it.ispw.bookworlds.model.BookClubEntity;
 import it.ispw.bookworlds.model.Genre;
@@ -48,7 +49,7 @@ public class BookClubDAOJDBC implements BookClubDAO{
     }
 
     @Override
-    public List<BookClubEntity> getBookClubsByGenres(List<Genre> genres) {
+    public List<BookClubEntity> getBookClubsByGenres(List<Genre> genres) throws NoBookClubsFoundException {
         // Lista di club del libro da restituire
         List<BookClubEntity> bookClubs = new ArrayList<BookClubEntity>();
 
@@ -70,7 +71,7 @@ public class BookClubDAOJDBC implements BookClubDAO{
             Printer.printError(e.getLocalizedMessage());
             System.exit(-1);
         }
-
+        if(bookClubs.isEmpty()) throw new NoBookClubsFoundException();
         return bookClubs;
     }
 
@@ -116,23 +117,46 @@ public class BookClubDAOJDBC implements BookClubDAO{
     public void addSubscriber(String name) {
 
         try{
-            PreparedStatement statement = connection.prepareStatement("SELECT numberOfSubscribers FROM book_club WHERE name=?");
-            statement.setString(1,name);
-            ResultSet rs = statement.executeQuery();
-
-            int oldNumber;
-            if(rs.next()) oldNumber = rs.getInt("numberOfSubscribers");
-            else oldNumber = 0;
-
-            statement = connection.prepareStatement("UPDATE book_club SET numberOfSubscribers=? WHERE name=?");
-            statement.setInt(1, oldNumber + 1);
+            PreparedStatement statement = connection.prepareStatement("UPDATE book_club SET numberOfSubscribers=? WHERE name=?");
+            statement.setInt(1, getNumberOfSubscribers(name) + 1);
             statement.setString(2, name);
-            statement.executeQuery();
+            statement.execute();
 
         }catch (SQLException e) {
             Printer.printError(e.getLocalizedMessage());
             System.exit(-1);
         }
+    }
+
+    @Override
+    public void removeSubscriber(String name) {
+
+        try{
+            PreparedStatement statement = connection.prepareStatement("UPDATE book_club SET numberOfSubscribers=? WHERE name=?");
+            statement.setInt(1, getNumberOfSubscribers(name) - 1);
+            statement.setString(2, name);
+            statement.execute();
+
+        }catch (SQLException e) {
+            Printer.printError(e.getLocalizedMessage());
+            System.exit(-1);
+        }
+    }
+
+    private int getNumberOfSubscribers(String name){
+        try{
+            PreparedStatement statement = connection.prepareStatement("SELECT numberOfSubscribers FROM book_club WHERE name=?");
+            statement.setString(1,name);
+            ResultSet rs = statement.executeQuery();
+
+            if(rs.next()) return rs.getInt("numberOfSubscribers");
+
+        }catch (SQLException e) {
+            Printer.printError(e.getLocalizedMessage());
+            System.exit(-1);
+        }
+
+        return -1;
     }
 
     private List<BookClubEntity> createListFromResultSet(ResultSet rs) throws SQLException {

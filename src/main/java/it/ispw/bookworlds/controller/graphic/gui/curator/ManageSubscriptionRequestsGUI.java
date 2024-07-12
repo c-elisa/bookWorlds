@@ -1,7 +1,7 @@
 package it.ispw.bookworlds.controller.graphic.gui.curator;
 
 import it.ispw.bookworlds.bean.SubscriptionRequestBean;
-import it.ispw.bookworlds.controller.application.curator.ManageSubscriptionRequestsController;
+import it.ispw.bookworlds.controller.application.SubscribeToBookClubController;
 import it.ispw.bookworlds.controller.graphic.gui.GenericGUI;
 import it.ispw.bookworlds.controller.graphic.gui.PagesGUI;
 import it.ispw.bookworlds.exceptions.NoRequestSelectedException;
@@ -29,7 +29,7 @@ public class ManageSubscriptionRequestsGUI extends GenericGUI implements Initial
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            ManageSubscriptionRequestsController controller = new ManageSubscriptionRequestsController();
+            SubscribeToBookClubController controller = new SubscribeToBookClubController();
             requests = controller.retrieveSubscriptionRequests();
 
             for(SubscriptionRequestBean request: requests){
@@ -45,7 +45,7 @@ public class ManageSubscriptionRequestsGUI extends GenericGUI implements Initial
 
     public void updateList(){
         try {
-            ManageSubscriptionRequestsController controller = new ManageSubscriptionRequestsController();
+            SubscribeToBookClubController controller = new SubscribeToBookClubController();
             requests = controller.retrieveSubscriptionRequests();
 
             list.getItems().clear();
@@ -63,7 +63,7 @@ public class ManageSubscriptionRequestsGUI extends GenericGUI implements Initial
     @FXML
     public void acceptRequest(){
         try {
-            ManageSubscriptionRequestsController controller = new ManageSubscriptionRequestsController();
+            SubscribeToBookClubController controller = new SubscribeToBookClubController();
 
             int index = list.getSelectionModel().getSelectedIndex();
             if (index == -1) throw new NoRequestSelectedException();
@@ -78,7 +78,7 @@ public class ManageSubscriptionRequestsGUI extends GenericGUI implements Initial
     @FXML
     private void rejectRequest(){
         try {
-            ManageSubscriptionRequestsController controller = new ManageSubscriptionRequestsController();
+            SubscribeToBookClubController controller = new SubscribeToBookClubController();
 
             int index = list.getSelectionModel().getSelectedIndex();
             if (index == -1) throw new NoRequestSelectedException();

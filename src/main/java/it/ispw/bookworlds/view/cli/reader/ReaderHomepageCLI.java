@@ -12,12 +12,11 @@ public class ReaderHomepageCLI extends GeneralPageCLI implements PageCLI {
             HOMEPAGE - Sezione lettore
             
             [1] Iscriviti a un club del libro
-            [2] Scrivi commento su un libro in lettura
+            [2] Segna libro come letto
             [3] Disiscriviti da un club del libro
             [4] "Consigliami un libro"
-            [5] Consulta una lista di libri
-            [6] Gestisci liste dei libri
-            [7] Logout
+            [5] Visualizza stato richieste di iscrizione
+            [6] Logout
             """;
 
     //Controller grafico associato alla View
@@ -34,7 +33,9 @@ public class ReaderHomepageCLI extends GeneralPageCLI implements PageCLI {
                 int selection = requestInt("Seleziona un'opzione: ");
                 switch(selection){
                     case 1 -> controller.subscribeToBookClub();
-                    case 7 -> controller.logout();
+                    case 3 -> controller.unsubscribeFromBookClub();
+                    case 5 -> controller.viewRequestsState();
+                    case 6 -> controller.logout();
                     default -> throw new InvalidSelectionException();
                 }
             }catch(InvalidSelectionException | SessionNotFoundException e){

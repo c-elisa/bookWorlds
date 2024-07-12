@@ -1,19 +1,22 @@
 package it.ispw.bookworlds.dao;
 
+import it.ispw.bookworlds.exceptions.NoBookClubsFoundException;
 import it.ispw.bookworlds.model.BookClubEntity;
 import it.ispw.bookworlds.model.Genre;
 
 import java.util.List;
 
 public interface BookClubDAO {
-    public void createBookClub(BookClubEntity bookClub);
+    void createBookClub(BookClubEntity bookClub);
 
-    public List<BookClubEntity> getBookClubsByGenres(List<Genre> genres);
+    List<BookClubEntity> getBookClubsByGenres(List<Genre> genres) throws NoBookClubsFoundException;
 
-    public List<BookClubEntity> getBookClubsByOwner(String name);
+    List<BookClubEntity> getBookClubsByOwner(String name);
 
-    public BookClubEntity getBookClubByName(String name);
+    BookClubEntity getBookClubByName(String name);
 
-    public void addSubscriber(String name);
+    void addSubscriber(String name);
+
+    void removeSubscriber(String name);
 
 }

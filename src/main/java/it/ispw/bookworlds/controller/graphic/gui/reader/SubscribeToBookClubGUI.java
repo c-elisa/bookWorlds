@@ -4,9 +4,10 @@ import it.ispw.bookworlds.bean.BookClubBean;
 import it.ispw.bookworlds.bean.GenresListBean;
 import it.ispw.bookworlds.bean.SubscriptionRequestBean;
 import it.ispw.bookworlds.bean.observer.Observer;
-import it.ispw.bookworlds.controller.application.reader.SubscribeToBookClubController;
+import it.ispw.bookworlds.controller.application.SubscribeToBookClubController;
 import it.ispw.bookworlds.controller.graphic.gui.GenericGUI;
 import it.ispw.bookworlds.controller.graphic.gui.PagesGUI;
+import it.ispw.bookworlds.exceptions.NoBookClubsFoundException;
 import it.ispw.bookworlds.exceptions.SessionNotFoundException;
 import it.ispw.bookworlds.model.Genre;
 import it.ispw.bookworlds.model.RequestState;
@@ -69,29 +70,34 @@ public class SubscribeToBookClubGUI extends GenericGUI implements Initializable,
     @FXML
     public void displayList(){
         SubscribeToBookClubController controller = new SubscribeToBookClubController();
-        List<BookClubBean> bookClubs = controller.findBookClubs(genresBean);
-        list.getItems().clear();
-        for(BookClubBean bean: bookClubs){
-            list.getItems().add(bean.getName());
-        }
-        showButton.setDisable(true);
-        forwardButton.setDisable(false);
-        errorLabel.setText("");
-        addButton.setVisible(false);
-
-        list.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
-            String selection = list.getSelectionModel().getSelectedItem();
-            for(BookClubBean bookClub: bookClubs){
-                if(Objects.equals(bookClub.getName(), selection)){
-                    String text = "Nome: " + bookClub.getName() + " - Iscritti: " + bookClub.getNumberOfSubscribers() + "/" + bookClub.getCapacity() + " - Proprietario: " + bookClub.getOwner() + "\n";
-                    for(Genre genre: bookClub.getGenres()){
-                        text = text.concat(genre.toString() + ", ");
-                    }
-                    selectedArea.setText(text);
-                    break;
-                }
+        try {
+            List<BookClubBean> bookClubs = controller.findBookClubs(genresBean);
+            list.getItems().clear();
+            for(BookClubBean bean: bookClubs){
+                list.getItems().add(bean.getName());
             }
-        });
+            showButton.setDisable(true);
+            forwardButton.setDisable(false);
+            errorLabel.setText("");
+            addButton.setVisible(false);
+
+            list.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
+                String selection = list.getSelectionModel().getSelectedItem();
+                for(BookClubBean bookClub: bookClubs){
+                    if(Objects.equals(bookClub.getName(), selection)){
+                        String text = "Nome: " + bookClub.getName() + " - Iscritti: " + bookClub.getNumberOfSubscribers() + "/" + bookClub.getCapacity() + " - Proprietario: " + bookClub.getOwner() + "\n";
+                        for(Genre genre: bookClub.getGenres()){
+                            text = text.concat(genre.toString() + ", ");
+                        }
+                        selectedArea.setText(text);
+                        break;
+                    }
+                }
+            });
+        } catch (NoBookClubsFoundException e) {
+            createAndShowAlert("Info", e.getLocalizedMessage());
+            goBack();
+        }
     }
 
     public void makeRequest(){
@@ -111,16 +117,13 @@ public class SubscribeToBookClubGUI extends GenericGUI implements Initializable,
 
     @Override
     public void update(RequestState state) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Esito richiesta di iscrizione");
-        switch (state) {
-            case RequestState.PENDING -> alert.setHeaderText("La richiesta è stata inoltrata con successo.");
-            case RequestState.REJECTED -> alert.setHeaderText("La richiesta è stata respinta.");
-            case RequestState.DUPLICATE -> alert.setHeaderText("Richiesta duplicata: sei già iscritto a questo club del libro.");
-            default -> alert.setHeaderText("Nessuna informazione sulla richiesta.");
-        }
+        String title = "Informazioni sull'esito della richiesta";
 
-        Optional<ButtonType> result = alert.showAndWait();
-        if(result.isPresent() && result.get() == ButtonType.OK) goBack();
+        switch (state) {
+            case RequestState.PENDING -> createAndShowAlert(title, "La richiesta è stata inoltrata con successo.");
+            case RequestState.REJECTED ->createAndShowAlert(title, "La richiesta è stata respinta.");
+            case RequestState.DUPLICATE -> createAndShowAlert(title, "Richiesta duplicata: sei già iscritto a questo club del libro.");
+            default -> createAndShowAlert(title,"Nessuna informazione sulla richiesta.");
+        }
     }
 }

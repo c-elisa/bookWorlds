@@ -12,6 +12,8 @@ public class ReaderHomepageGUI extends GenericGUI {
     private Label errorLabel;
 
     public void subscribeToBookClub(){changePage(PagesGUI.SUBSCRIBE_TO_BOOK_CLUB);}
+    public void viewRequestsState(){changePage(PagesGUI.VIEW_REQUESTS_STATE);}
+    public void unsubscribeFromBookClub(){changePage(PagesGUI.UNSUBSCRIBE);}
     public void logout(){
         try {
             LogoutController controller = new LogoutController();
