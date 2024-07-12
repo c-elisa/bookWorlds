@@ -13,6 +13,6 @@ public class GenericGUI {
         alert.setTitle(title);
         alert.setHeaderText(header);
 
-        Optional<ButtonType> result = alert.showAndWait();
+        alert.showAndWait();
     }
 }

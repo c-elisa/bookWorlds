@@ -13,8 +13,8 @@ import java.util.List;
 
 public class SubscribersDAOJDBC implements SubscribersDAO{
     private static SubscribersDAOJDBC instance = null;
-    private final String REMOVE_QUERY = "DELETE FROM subscribers WHERE bookclub=? AND reader=?";
-    private final String ADD_QUERY = "INSERT INTO subscribers VALUES (?,?)";
+    private final static String REMOVEQUERY = "DELETE FROM subscribers WHERE bookclub=? AND reader=?";
+    private final static String ADDQUERY = "INSERT INTO subscribers VALUES (?,?)";
 
     private SubscribersDAOJDBC(){}
 
@@ -44,12 +44,12 @@ public class SubscribersDAOJDBC implements SubscribersDAO{
 
     @Override
     public void addSubscriber(String bookClub, String reader) {
-        modifySubscribers(bookClub, reader, ADD_QUERY);
+        modifySubscribers(bookClub, reader, ADDQUERY);
     }
 
     @Override
     public void removeSubscriber(String bookClub, String reader) {
-        modifySubscribers(bookClub, reader, REMOVE_QUERY);
+        modifySubscribers(bookClub, reader, REMOVEQUERY);
     }
 
     @Override
