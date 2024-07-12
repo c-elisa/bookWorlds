@@ -29,16 +29,12 @@ public class SubscribeToBookClubCLI extends GeneralPageCLI implements PageCLI {
         printList(allGenres);
         selectGenres();
 
-        while(true){
-            try {
-                if(makeRequest()) {
-                    controller.makeSubscriptionRequest(request);
-                    break;
-                }
-            } catch (NoBookClubsFoundException e) {
-                printErrorMessage(e.getLocalizedMessage());
-                break;
+        try {
+            if(makeRequest()) {
+                controller.makeSubscriptionRequest(request);
             }
+        } catch (NoBookClubsFoundException e) {
+            printErrorMessage(e.getLocalizedMessage());
         }
     }
 

@@ -13,6 +13,8 @@ import java.util.List;
 
 public class SubscribersDAOJDBC implements SubscribersDAO{
     private static SubscribersDAOJDBC instance = null;
+    private final String REMOVE_QUERY = "DELETE FROM subscribers WHERE bookclub=? AND reader=?";
+    private final String ADD_QUERY = "INSERT INTO subscribers VALUES (?,?)";
 
     private SubscribersDAOJDBC(){}
 
@@ -42,34 +44,12 @@ public class SubscribersDAOJDBC implements SubscribersDAO{
 
     @Override
     public void addSubscriber(String bookClub, String reader) {
-        Connection connection = ConnectionFactory.getInstance();
-
-        try{
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO subscribers VALUES (?,?)");
-            statement.setString(1, bookClub);
-            statement.setString(2, reader);
-
-            statement.execute();
-        } catch (SQLException e) {
-            Printer.printError(e.getLocalizedMessage());
-            System.exit(-1);
-        }
+        modifySubscribers(bookClub, reader, ADD_QUERY);
     }
 
     @Override
     public void removeSubscriber(String bookClub, String reader) {
-        Connection connection = ConnectionFactory.getInstance();
-
-        try{
-            PreparedStatement statement = connection.prepareStatement("DELETE FROM subscribers WHERE bookclub=? AND reader=?");
-            statement.setString(1, bookClub);
-            statement.setString(2, reader);
-
-            statement.execute();
-        } catch (SQLException e) {
-            Printer.printError(e.getLocalizedMessage());
-            System.exit(-1);
-        }
+        modifySubscribers(bookClub, reader, REMOVE_QUERY);
     }
 
     @Override
@@ -94,5 +74,20 @@ public class SubscribersDAOJDBC implements SubscribersDAO{
 
         if(bookClubs.isEmpty()) throw new BookClubsNotFound();
         return bookClubs;
+    }
+
+    private void modifySubscribers(String bookClub, String reader, String query){
+        Connection connection = ConnectionFactory.getInstance();
+
+        try{
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, bookClub);
+            statement.setString(2, reader);
+
+            statement.execute();
+        } catch (SQLException e) {
+            Printer.printError(e.getLocalizedMessage());
+            System.exit(-1);
+        }
     }
 }

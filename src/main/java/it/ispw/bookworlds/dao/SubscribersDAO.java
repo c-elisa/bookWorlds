@@ -1,7 +1,6 @@
 package it.ispw.bookworlds.dao;
 
 import it.ispw.bookworlds.exceptions.BookClubsNotFound;
-import it.ispw.bookworlds.model.BookClubEntity;
 
 import java.util.List;
 
