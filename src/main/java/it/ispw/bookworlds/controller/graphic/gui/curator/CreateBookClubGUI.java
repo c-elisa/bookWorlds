@@ -13,6 +13,7 @@ import it.ispw.bookworlds.utils.Validator;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -32,6 +33,9 @@ public class CreateBookClubGUI extends GenericGUI implements Initializable {
     @FXML
     private Label errorLabel;
 
+    @FXML
+    private Text selectedArea;
+
     private ArrayList<Genre> genres = new ArrayList<Genre>();
 
     @Override
@@ -40,6 +44,8 @@ public class CreateBookClubGUI extends GenericGUI implements Initializable {
         GenresListBean allGenres = controller.getGenresList();
 
         genresList.getItems().addAll(allGenres.getGenres());
+
+        genresList.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> selectedArea.setText(genresList.getSelectionModel().getSelectedItem()));
     }
 
     @FXML

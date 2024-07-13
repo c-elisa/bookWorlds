@@ -84,5 +84,6 @@
 }
 
 #selectedArea{
-    -fx-background-color: white;
+    -fx-text-fill: #59351F;
+    -fx-font-family: "Epilogue";
 }

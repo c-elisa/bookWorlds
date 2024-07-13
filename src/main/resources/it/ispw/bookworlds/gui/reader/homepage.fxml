@@ -39,7 +39,7 @@
                                 <Insets left="50.0" top="45.0" />
                             </VBox.margin>
                         </Button>
-                        <Button fx:id="openBookClubButton" mnemonicParsing="false" prefHeight="59.0" prefWidth="450.0" stylesheets="@../../style/curator/homepage.css" text="Segna libro come letto">
+                        <Button fx:id="openBookClubButton" disable="true" mnemonicParsing="false" prefHeight="59.0" prefWidth="450.0" stylesheets="@../../style/curator/homepage.css" text="Segna libro come letto">
                             <VBox.margin>
                                 <Insets left="50.0" top="50.0" />
                             </VBox.margin>
@@ -49,7 +49,7 @@
                                 <Insets left="50.0" top="50.0" />
                             </VBox.margin>
                         </Button>
-                  <Button mnemonicParsing="false" prefHeight="59.0" prefWidth="450.0" stylesheets="@../../style/curator/homepage.css" text="&quot;Consigliami un libro&quot;">
+                  <Button disable="true" mnemonicParsing="false" prefHeight="59.0" prefWidth="450.0" stylesheets="@../../style/curator/homepage.css" text="&quot;Consigliami un libro&quot;">
                      <VBox.margin>
                         <Insets left="50.0" top="50.0" />
                      </VBox.margin>

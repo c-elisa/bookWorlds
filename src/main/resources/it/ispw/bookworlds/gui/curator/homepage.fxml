@@ -34,22 +34,32 @@
          <center>
             <VBox alignment="TOP_CENTER" maxWidth="800.0" prefHeight="650.0" prefWidth="1093.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="59.0" prefWidth="393.0" stylesheets="@../../style/curator/homepage.css" text="Gestisci club del libro">
+                  <Button fx:id="openBookClubButton" mnemonicParsing="false" onMouseClicked="#createBookClub" prefHeight="59.0" prefWidth="455.0" stylesheets="@../../style/curator/homepage.css" text="Apri nuovo club del libro">
                      <VBox.margin>
-                        <Insets left="50.0" top="130.0" />
+                        <Insets left="50.0" top="40.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="openBookClubButton" mnemonicParsing="false" onMouseClicked="#createBookClub" prefHeight="59.0" prefWidth="393.0" stylesheets="@../../style/curator/homepage.css" text="Apri nuovo club del libro">
-                     <VBox.margin>
-                        <Insets left="50.0" top="50.0" />
-                     </VBox.margin>
-                  </Button>
-                  <Button mnemonicParsing="false" onMouseClicked="#manageSubscriptionRequests" prefHeight="59.0" prefWidth="393.0" stylesheets="@../../style/curator/homepage.css" text="Gestisci richieste di iscrizione">
+                  <Button disable="true" mnemonicParsing="false" prefHeight="59.0" prefWidth="455.0" stylesheets="@../../style/curator/homepage.css" text="Aggiungi libro ad una lista di lettura">
                      <VBox.margin>
                         <Insets left="50.0" top="50.0" />
                      </VBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" onMouseClicked="#logout" prefHeight="59.0" prefWidth="393.0" stylesheets="@../../style/curator/homepage.css" text="Logout">
+                  <Button disable="true" mnemonicParsing="false" prefHeight="59.0" prefWidth="455.0" stylesheets="@../../style/curator/homepage.css" text="Elimina libro da una lista di lettura">
+                     <VBox.margin>
+                        <Insets left="50.0" top="50.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" onMouseClicked="#manageSubscriptionRequests" prefHeight="59.0" prefWidth="455.0" stylesheets="@../../style/curator/homepage.css" text="Gestisci richieste di iscrizione">
+                     <VBox.margin>
+                        <Insets left="50.0" top="50.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button disable="true" mnemonicParsing="false" onMouseClicked="#manageSubscriptionRequests" prefHeight="59.0" prefWidth="455.0" stylesheets="@../../style/curator/homepage.css" text="Rimuovi iscritto">
+                     <VBox.margin>
+                        <Insets left="50.0" top="50.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" onMouseClicked="#logout" prefHeight="59.0" prefWidth="455.0" stylesheets="@../../style/curator/homepage.css" text="Logout">
                      <VBox.margin>
                         <Insets left="50.0" top="50.0" />
                      </VBox.margin>

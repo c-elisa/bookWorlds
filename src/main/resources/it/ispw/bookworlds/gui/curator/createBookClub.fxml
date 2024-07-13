@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../../style/curator/createBookClub.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.ispw.bookworlds.controller.graphic.gui.curator.CreateBookClubGUI">
    <children>
@@ -68,11 +69,26 @@
                   <HBox alignment="CENTER" prefHeight="383.0" prefWidth="1280.0">
                      <children>
                         <ListView fx:id="genresList" maxWidth="700.0" prefHeight="374.0" prefWidth="700.0" />
-                        <Button fx:id="addButton" mnemonicParsing="false" onMouseClicked="#selectGenre" text="Seleziona">
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Text fx:id="selectedArea" fill="#59351f" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="195.0">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Text>
+                              <Button fx:id="addButton" mnemonicParsing="false" onMouseClicked="#selectGenre" text="Seleziona">
+                                 <VBox.margin>
+                                    <Insets top="30.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
                            <HBox.margin>
-                              <Insets left="40.0" />
+                              <Insets left="30.0" />
                            </HBox.margin>
-                        </Button>
+                        </VBox>
                      </children>
                   </HBox>
                </children>

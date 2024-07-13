@@ -17,12 +17,12 @@
          <top>
             <HBox maxWidth="1656.0" prefHeight="70.0" prefWidth="1280.0" style="-fx-background-color: A06A45;" BorderPane.alignment="TOP_LEFT">
                <children>
-                  <Label fx:id="appTitle" alignment="CENTER" contentDisplay="CENTER" prefHeight="85.0" prefWidth="312.0" stylesheets="@../../style/curator/homepage.css" text="BookWorlds" textFill="WHITE">
+                  <Label fx:id="appTitle" alignment="CENTER" contentDisplay="CENTER" prefHeight="85.0" prefWidth="312.0" text="BookWorlds" textFill="WHITE">
                      <font>
                         <Font size="35.0" />
                      </font>
                   </Label>
-                  <Label fx:id="modeLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="70.0" prefWidth="554.0" stylesheets="@../../style/curator/homepage.css" text="Modalità Lettore" textFill="WHITE">
+                  <Label fx:id="modeLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="70.0" prefWidth="554.0" text="Modalità Lettore" textFill="WHITE">
                      <font>
                         <Font size="35.0" />
                      </font>
@@ -36,25 +36,28 @@
          <center>
             <VBox prefHeight="551.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label fx:id="actionTitle" alignment="CENTER" prefHeight="69.0" prefWidth="1280.0" stylesheets="@../../style/curator/createBookClub.css" text="ISCRIVITI A UN CLUB DEL LIBRO" textFill="WHITE">
+                  <Label fx:id="actionTitle" alignment="CENTER" prefHeight="69.0" prefWidth="1280.0" text="ISCRIVITI A UN CLUB DEL LIBRO" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="label2" alignment="CENTER" prefHeight="35.0" prefWidth="1280.0" stylesheets="@../../style/curator/createBookClub.css" text="Seleziona fino a 4 generi:" textFill="WHITE">
+                  <Label fx:id="label2" alignment="CENTER" prefHeight="35.0" prefWidth="1280.0" text="Seleziona fino a 4 generi:" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
                   <HBox alignment="CENTER" prefHeight="383.0" prefWidth="1280.0">
                      <children>
-                        <ListView fx:id="list" maxWidth="700.0" prefHeight="332.0" prefWidth="700.0" stylesheets="@../../style/reader/subscribeToBookClub.css" />
+                        <ListView fx:id="list" maxWidth="700.0" prefHeight="332.0" prefWidth="700.0" />
                         <VBox alignment="TOP_CENTER" prefHeight="383.0" prefWidth="324.0">
                            <children>
-                              <Text fx:id="selectedArea" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="195.0">
+                              <Text fx:id="selectedArea" fill="#59351f" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="195.0">
                                  <VBox.margin>
                                     <Insets top="60.0" />
                                  </VBox.margin>
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
                               </Text>
                               <Button fx:id="addButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#selectGenre" text="Seleziona">
                                  <VBox.margin>

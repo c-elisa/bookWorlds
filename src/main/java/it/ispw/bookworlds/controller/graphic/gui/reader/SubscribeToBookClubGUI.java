@@ -50,6 +50,8 @@ public class SubscribeToBookClubGUI extends GenericGUI implements Initializable,
         GenresListBean allGenres = controller.getGenresList();
 
         list.getItems().addAll(allGenres.getGenres());
+
+        list.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> selectedArea.setText(list.getSelectionModel().getSelectedItem()));
     }
 
     @FXML
@@ -85,7 +87,7 @@ public class SubscribeToBookClubGUI extends GenericGUI implements Initializable,
                 String selection = list.getSelectionModel().getSelectedItem();
                 for(BookClubBean bookClub: bookClubs){
                     if(Objects.equals(bookClub.getName(), selection)){
-                        String text = "Nome: " + bookClub.getName() + " - Iscritti: " + bookClub.getNumberOfSubscribers() + "/" + bookClub.getCapacity() + " - Proprietario: " + bookClub.getOwner() + "\n";
+                        String text = "DETTAGLI CLUB DEL LIBRO\nNome: " + bookClub.getName() + "\nIscritti: " + bookClub.getNumberOfSubscribers() + "/" + bookClub.getCapacity() + "\nProprietario: " + bookClub.getOwner() + "\n";
                         for(Genre genre: bookClub.getGenres()){
                             text = text.concat(genre.toString() + ", ");
                         }

@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.util.List;
@@ -23,6 +24,9 @@ public class ManageSubscriptionRequestsGUI extends GenericGUI implements Initial
 
     @FXML
     private Label errorLabel;
+
+    @FXML
+    private Text selectedArea;
 
     List<SubscriptionRequestBean> requests;
 
@@ -37,6 +41,8 @@ public class ManageSubscriptionRequestsGUI extends GenericGUI implements Initial
 
                 list.getItems().add(item);
             }
+
+            list.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> selectedArea.setText(list.getSelectionModel().getSelectedItem()));
         } catch (SessionNotFoundException e) {
             Printer.printError(e.getLocalizedMessage());
             goBack();

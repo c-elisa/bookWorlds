@@ -9,6 +9,7 @@ import it.ispw.bookworlds.utils.Printer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
+import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.util.List;
@@ -17,6 +18,9 @@ import java.util.ResourceBundle;
 public class UnsubscribeFromBookClubGUI extends GenericGUI implements Initializable {
     @FXML
     private ListView<String> list;
+
+    @FXML
+    private Text selectedArea;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -28,6 +32,8 @@ public class UnsubscribeFromBookClubGUI extends GenericGUI implements Initializa
             for(String bookClub : bookClubs){
                 list.getItems().add(bookClub);
             }
+
+            list.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> selectedArea.setText(list.getSelectionModel().getSelectedItem()));
         }catch (SessionNotFoundException e) {
             Printer.printError(e.getLocalizedMessage());
             goBack();
