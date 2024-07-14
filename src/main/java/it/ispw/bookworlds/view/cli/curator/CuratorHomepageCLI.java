@@ -35,6 +35,7 @@ public class CuratorHomepageCLI extends GeneralPageCLI implements PageCLI {
                 switch (selection) {
                     case 1 -> controller.createBookClub();
                     case 2 -> controller.manageSubscriptionRequests();
+                    case 5 -> controller.removeSubscriber();
                     case 6 -> controller.logout();
                     default -> throw new InvalidSelectionException();
                 }

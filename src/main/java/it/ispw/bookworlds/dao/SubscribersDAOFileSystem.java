@@ -94,4 +94,21 @@ public class SubscribersDAOFileSystem implements SubscribersDAO{
         if(bookClubs.isEmpty()) throw new BookClubsNotFound();
         return bookClubs;
     }
+
+    @Override
+    public List<String> getSubscribers(String bookClub) {
+        List<String> readers = new ArrayList<>();
+
+        try(CSVReader csvReader = new CSVReader(new BufferedReader(new FileReader(fd)))){
+            String[] nextRecord;
+
+            while((nextRecord = csvReader.readNext()) != null){
+                if(Objects.equals(nextRecord[0], bookClub)) readers.add(nextRecord[1]);
+            }
+        } catch (IOException | CsvValidationException e) {
+            Printer.printError(e.getLocalizedMessage());
+        }
+
+        return readers;
+    }
 }

@@ -76,6 +76,27 @@ public class SubscribersDAOJDBC implements SubscribersDAO{
         return bookClubs;
     }
 
+    @Override
+    public List<String> getSubscribers(String bookClub) {
+        Connection connection = ConnectionFactory.getInstance();
+        List<String> readers = new ArrayList<>();
+
+        try{
+            PreparedStatement statement = connection.prepareStatement("SELECT reader FROM subscribers WHERE bookclub=?");
+            statement.setString(1, bookClub);
+
+            ResultSet rs = statement.executeQuery();
+
+            while(rs.next()){
+                readers.add(rs.getString("reader"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return readers;
+    }
+
     private void modifySubscribers(String bookClub, String reader, String query){
         Connection connection = ConnectionFactory.getInstance();
 

@@ -15,6 +15,7 @@ public class CuratorHomepageGUI extends GenericGUI {
 
     public void createBookClub(){changePage(PagesGUI.CREATE_BOOK_CLUB);}
     public void manageSubscriptionRequests(){changePage(PagesGUI.MANAGE_SUBSCRIPTION_REQUESTS);}
+    public void removeSubscriber(){changePage(PagesGUI.REMOVE_SUBSCRIBER);}
     public void logout(){
         try {
             LogoutController controller = new LogoutController();

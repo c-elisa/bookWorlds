@@ -1,5 +1,6 @@
 package it.ispw.bookworlds.bean;
 
+import it.ispw.bookworlds.model.BookClubEntity;
 import it.ispw.bookworlds.model.Genre;
 
 import java.util.List;

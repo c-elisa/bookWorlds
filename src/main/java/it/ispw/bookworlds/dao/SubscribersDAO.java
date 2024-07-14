@@ -9,4 +9,5 @@ public interface SubscribersDAO {
     void addSubscriber(String bookClub, String reader);
     void removeSubscriber(String bookClub, String reader);
     List<String> getReaderBookClubs(String reader) throws BookClubsNotFound;
+    List<String> getSubscribers(String bookClub);
 }

@@ -1,5 +1,6 @@
 package it.ispw.bookworlds.view.cli;
 
+import it.ispw.bookworlds.exceptions.InvalidSelectionException;
 import it.ispw.bookworlds.exceptions.NotANumberException;
 import it.ispw.bookworlds.utils.Printer;
 import it.ispw.bookworlds.utils.Validator;
@@ -41,6 +42,21 @@ public class GeneralPageCLI {
                 printErrorMessage(e.getLocalizedMessage());
             }
         }
+    }
+
+    protected int selectFromList(List<String> list, String message){
+        int selection;
+        while(true){
+            try {
+                selection = requestInt(message);
+                if (selection > list.size()) throw new InvalidSelectionException();
+                break;
+            }catch(InvalidSelectionException e){
+                printErrorMessage(e.getLocalizedMessage());
+            }
+        }
+
+        return selection;
     }
 
     protected static void clearScreen(){

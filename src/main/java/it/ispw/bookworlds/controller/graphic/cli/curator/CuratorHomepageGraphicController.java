@@ -6,11 +6,11 @@ import it.ispw.bookworlds.view.cli.LoginPageCLI;
 import it.ispw.bookworlds.view.cli.PageCLI;
 import it.ispw.bookworlds.view.cli.curator.CreateBookClubCLI;
 import it.ispw.bookworlds.view.cli.curator.ManageSubscriptionRequestsCLI;
+import it.ispw.bookworlds.view.cli.curator.RemoveSubscriberCLI;
 
 public class CuratorHomepageGraphicController {
     public void createBookClub(){changePage(new CreateBookClubCLI());}
-    public void manageBookClubs(){//è vuoto
-         }
+    public void removeSubscriber(){changePage(new RemoveSubscriberCLI());}
     public void manageSubscriptionRequests(){changePage(new ManageSubscriptionRequestsCLI());}
     public void logout() throws SessionNotFoundException {
         LogoutController controller = new LogoutController();
