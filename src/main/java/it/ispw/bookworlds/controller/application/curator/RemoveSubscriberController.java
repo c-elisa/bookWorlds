@@ -1,6 +1,5 @@
 package it.ispw.bookworlds.controller.application.curator;
 
-import it.ispw.bookworlds.bean.BookClubBean;
 import it.ispw.bookworlds.bean.SessionBean;
 import it.ispw.bookworlds.dao.BookClubDAO;
 import it.ispw.bookworlds.dao.SubscribersDAO;

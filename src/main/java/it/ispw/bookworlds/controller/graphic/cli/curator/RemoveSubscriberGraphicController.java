@@ -1,6 +1,5 @@
 package it.ispw.bookworlds.controller.graphic.cli.curator;
 
-import it.ispw.bookworlds.bean.BookClubBean;
 import it.ispw.bookworlds.controller.application.curator.RemoveSubscriberController;
 import it.ispw.bookworlds.exceptions.SessionNotFoundException;
 

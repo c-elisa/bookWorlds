@@ -37,7 +37,7 @@ public class RemoveSubscriberCLI extends GeneralPageCLI implements PageCLI {
             controller.removeSubscriber(subscribers.get(selection - 1), selectedBookClub);
 
         } catch (SessionNotFoundException e) {
-            throw new RuntimeException(e);
+            printErrorMessage(e.getLocalizedMessage());
         }
     }
 

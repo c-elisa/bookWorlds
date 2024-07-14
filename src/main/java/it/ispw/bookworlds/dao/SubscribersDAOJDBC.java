@@ -91,7 +91,8 @@ public class SubscribersDAOJDBC implements SubscribersDAO{
                 readers.add(rs.getString("reader"));
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            Printer.printError(e.getLocalizedMessage());
+            System.exit(-1);
         }
 
         return readers;
