@@ -45,4 +45,43 @@ public class AccountDAOJDBC implements AccountDAO {
 
         return account;
     }
+
+    @Override
+    public void signUp(int code, String username, String password, String email, Role role) {
+        Connection connection = ConnectionFactory.getInstance();
+
+        try{
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO account VALUES (?,?,?,?,?)");
+            statement.setInt(1, code);
+            statement.setString(2, username);
+            statement.setString(3, password);
+            statement.setString(4, email);
+            statement.setString(5, String.valueOf(role));
+
+            statement.execute();
+
+        }catch (SQLException e) {
+            Printer.printError(e.getLocalizedMessage());
+            System.exit(-1);
+        }
+    }
+
+    @Override
+    public int getMaxCode() {
+        Connection connection = ConnectionFactory.getInstance();
+        int code = 0;
+
+        try{
+            PreparedStatement statement = connection.prepareStatement("SELECT MAX(code) FROM account");
+
+            ResultSet rs = statement.executeQuery();
+
+            if(rs.next()) code = rs.getInt(1);
+        } catch (SQLException e) {
+            Printer.printError(e.getLocalizedMessage());
+            System.exit(-1);
+        }
+
+        return code;
+    }
 }

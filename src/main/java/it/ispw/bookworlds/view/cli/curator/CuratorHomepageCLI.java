@@ -27,7 +27,6 @@ public class CuratorHomepageCLI extends GeneralPageCLI implements PageCLI {
     public void display() {
 
         while(true) {
-            clearScreen();
             printTitle();
             Printer.println(CURATOR_MENU);
             try {

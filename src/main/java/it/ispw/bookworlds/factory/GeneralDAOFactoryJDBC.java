@@ -4,6 +4,9 @@ import it.ispw.bookworlds.dao.*;
 
 public class GeneralDAOFactoryJDBC extends GeneralDAOFactory {
     @Override
+    public AccountDAO createAccountDAO() {return AccountDAOJDBC.getInstance();}
+
+    @Override
     public LoginDAO createLoginDao(){return LoginDaoJDBC.getInstance();}
 
     @Override

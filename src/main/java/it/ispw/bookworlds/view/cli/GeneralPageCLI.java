@@ -59,10 +59,6 @@ public class GeneralPageCLI {
         return selection;
     }
 
-    protected static void clearScreen(){
-        System.out.print("\\033[H\\033[2J");
-    }
-
     protected void printList(List<String> list){
         int i = 1;
         for(String string: list){

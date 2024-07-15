@@ -26,7 +26,6 @@ public class ReaderHomepageCLI extends GeneralPageCLI implements PageCLI {
     public void display(){
 
         while(true) {
-            clearScreen();
             printTitle();
             Printer.println(READER_MENU);
             try{

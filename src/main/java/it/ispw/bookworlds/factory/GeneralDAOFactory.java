@@ -1,9 +1,6 @@
 package it.ispw.bookworlds.factory;
 
-import it.ispw.bookworlds.dao.BookClubDAO;
-import it.ispw.bookworlds.dao.LoginDAO;
-import it.ispw.bookworlds.dao.SubscribersDAO;
-import it.ispw.bookworlds.dao.SubscriptionRequestDAO;
+import it.ispw.bookworlds.dao.*;
 import it.ispw.bookworlds.exceptions.InvalidPersistenceTypeException;
 import it.ispw.bookworlds.utils.ApplicationProperties;
 
@@ -25,6 +22,8 @@ public abstract class GeneralDAOFactory {
         }
         return instance;
     }
+
+    public abstract AccountDAO createAccountDAO();
 
     public abstract LoginDAO createLoginDao();
 

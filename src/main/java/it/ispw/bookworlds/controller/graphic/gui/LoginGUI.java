@@ -40,4 +40,8 @@ public class LoginGUI extends GenericGUI{
         }
 
     }
+
+    public void signUp(){
+        changePage(PagesGUI.SIGNUP);
+    }
 }

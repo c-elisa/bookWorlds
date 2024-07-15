@@ -3,6 +3,7 @@ package it.ispw.bookworlds;
 import it.ispw.bookworlds.controller.graphic.gui.PageControllerGUI;
 import it.ispw.bookworlds.exceptions.InvalidSelectionException;
 import it.ispw.bookworlds.utils.Printer;
+import it.ispw.bookworlds.view.cli.InitialPageCLI;
 import it.ispw.bookworlds.view.cli.LoginPageCLI;
 import it.ispw.bookworlds.controller.graphic.gui.PagesGUI;
 import javafx.application.Application;
@@ -38,7 +39,7 @@ public class BookWorlds extends Application {
         }
 
         if(selection == 1){
-            new LoginPageCLI().display();
+            new InitialPageCLI().display();
         }else{
             launch(args);
         }

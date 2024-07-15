@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #d5ae99;" stylesheets="@../style/signUp.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.ispw.bookworlds.controller.graphic.gui.SignUpGUI">
+   <children>
+      <Label fx:id="appTitle" alignment="CENTER" contentDisplay="CENTER" layoutX="386.0" layoutY="174.0" prefHeight="92.0" prefWidth="559.0" text="BookWorlds" textFill="WHITE">
+         <font>
+            <Font size="35.0" />
+         </font>
+      </Label>
+      <TextField id="usernameTextField" fx:id="usernameField" layoutX="487.0" layoutY="281.0" prefHeight="40.0" prefWidth="356.0" promptText="username" />
+      <PasswordField id="passwordField" fx:id="passwordField" layoutX="487.0" layoutY="340.0" prefHeight="40.0" prefWidth="356.0" promptText="password" />
+      <Label fx:id="errorLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="428.0" layoutY="566.0" prefHeight="40.0" prefWidth="475.0" textAlignment="CENTER" textFill="#d00101" wrapText="true">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Button layoutX="675.0" layoutY="507.0" mnemonicParsing="false" onMouseClicked="#signUp" prefHeight="40.0" prefWidth="168.0" text="Registrati" />
+      <TextField id="usernameTextField" fx:id="emailField" layoutX="487.0" layoutY="399.0" prefHeight="40.0" prefWidth="356.0" promptText="email" />
+      <RadioButton fx:id="lettoreRB" layoutX="559.0" layoutY="471.0" mnemonicParsing="false" selected="true" text="Lettore">
+         <toggleGroup>
+            <ToggleGroup fx:id="role" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="curatoreRB" layoutX="659.0" layoutY="471.0" mnemonicParsing="false" text="Curatore" toggleGroup="$role" />
+      <Button layoutX="487.0" layoutY="507.0" mnemonicParsing="false" onMouseClicked="#goBack" prefHeight="40.0" prefWidth="168.0" text="Indietro" />
+   </children>
+</AnchorPane>
