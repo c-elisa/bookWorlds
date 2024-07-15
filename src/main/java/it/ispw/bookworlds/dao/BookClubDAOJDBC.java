@@ -53,7 +53,7 @@ public class BookClubDAOJDBC implements BookClubDAO{
         // Lista di club del libro da restituire
         List<BookClubEntity> bookClubs = new ArrayList<BookClubEntity>();
 
-        String query = "SELECT name, owner, numberOfSubscribers, capacity FROM book_club join book_club_genres ON name=bookclub WHERE ";
+        String query = "SELECT DISTINCT name, owner, numberOfSubscribers, capacity FROM book_club join book_club_genres ON name=bookclub WHERE ";
         for(int i=0; i<genres.size() - 1; i++){
             query = query.concat("genre=? OR ");
         }

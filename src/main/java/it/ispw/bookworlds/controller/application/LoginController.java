@@ -10,6 +10,13 @@ import it.ispw.bookworlds.model.AccountEntity;
 import it.ispw.bookworlds.utils.SessionManager;
 
 public class LoginController {
+    /**
+     * Permette all'utente di accedere al sistema inserendo le proprie credenziali
+     *
+     * @param creds contiene le credenziali con cui si vuole eseguire l'accesso al sistema
+     * @throws IncorrectPasswordException se lo username esiste ma la password inserita non è corretta
+     * @throws UsernameNotFoundException se lo username inserito non corrisponde a nessun account registrato
+     */
     public boolean login(CredentialsBean creds) throws IncorrectPasswordException, UsernameNotFoundException{
         LoginDAO loginDao = GeneralDAOFactory.getInstance().createLoginDao();
         AccountEntity account;

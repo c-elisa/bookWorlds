@@ -20,20 +20,7 @@ public class ViewRequestsStateGUI extends GenericGUI implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ViewRequestsStateController controller = new ViewRequestsStateController();
-
-        try {
-            List<SubscriptionRequestBean> requests = controller.retrieveSubscriptionRequests();
-
-            for(SubscriptionRequestBean request: requests){
-                String item = request.getBookClubName() + " -> " + request.getState().toString();
-
-                list.getItems().add(item);
-            }
-        }catch (SessionNotFoundException e) {
-            Printer.printError(e.getLocalizedMessage());
-            goBack();
-        }
+        updateList();
     }
 
     public void deleteRequests(){
@@ -41,7 +28,27 @@ public class ViewRequestsStateGUI extends GenericGUI implements Initializable {
 
         try {
             controller.deleteRequests();
+            updateList();
         } catch (SessionNotFoundException e) {
+            Printer.printError(e.getLocalizedMessage());
+            goBack();
+        }
+    }
+
+    private void updateList(){
+        ViewRequestsStateController controller = new ViewRequestsStateController();
+
+        try {
+            List<SubscriptionRequestBean> requests = controller.retrieveSubscriptionRequests();
+
+            list.getItems().clear();
+
+            for(SubscriptionRequestBean request: requests){
+                String item = request.getBookClubName() + " -> " + request.getState().toString();
+
+                list.getItems().add(item);
+            }
+        }catch (SessionNotFoundException e) {
             Printer.printError(e.getLocalizedMessage());
             goBack();
         }

@@ -21,6 +21,13 @@ import java.util.List;
 
 public class SubscribeToBookClubController extends GenericController {
 
+    /**
+     * Permette di recuperare la lista dei club del libro relativi ai generi specificati
+     * @param selectedGenres Bean contenente la lista con i generi che sono stati selezionati dall'utente
+     * @return una lista di BookClubBean che contengono le informazioni dei club del libro
+     * @throws NoBookClubsFoundException quando non esistono club del libro relativi ai generi selezionati
+     */
+
     public List<BookClubBean> findBookClubs(GenresListBean selectedGenres) throws NoBookClubsFoundException {
         ArrayList<BookClubBean> bookClubBeans = new ArrayList<>();
 
@@ -44,6 +51,14 @@ public class SubscribeToBookClubController extends GenericController {
         return bookClubBeans;
     }
 
+    /**
+     * Metodo per effettuare l'inoltro di una richiesta di iscrizione.
+     * Se il club del libro è pieno, la richiesta sarà impostata a REJECTED e non sarà inoltrata.
+     * Se il lettore è già iscritto al club del libro oppure ha già inviato una richiesta per esso, la richiesta sarà impostata a DUPLICATE e non sarà inoltrata.
+     * Altrimenti, la richiesta viene impostata a PENDING e viene inoltrata correttamente.
+     * @param request Bean che contiene i dati relativi alla richiesta da inoltrare
+     */
+
     public void makeSubscriptionRequest(SubscriptionRequestBean request){
         BookClubDAO bookClubDAO = GeneralDAOFactory.getInstance().createBookClubDAO();
         SubscriptionRequestDAO subscriptionRequestDAO = GeneralDAOFactory.getInstance().createSubscriptionRequestDAO();
@@ -60,6 +75,12 @@ public class SubscribeToBookClubController extends GenericController {
             subscriptionRequestDAO.addSubscriptionRequest(newRequest);
         }
     }
+
+    /**
+     * Recupera le richieste di iscrizione relative ai club del libro di cui l'utente che ha chiamato il metodo è proprietario.
+     * @return una lista di Bean contenenti le richieste di iscrizione
+     * @throws SessionNotFoundException se non esiste alcun account corrispondente al codice di sessione fornito
+     */
 
     public List<SubscriptionRequestBean> retrieveSubscriptionRequests() throws SessionNotFoundException {
         String username = SessionManager.getAccountBySessionId(SessionBean.getSessionId()).getUsername();
@@ -78,6 +99,12 @@ public class SubscribeToBookClubController extends GenericController {
         return requestsBean;
     }
 
+    /**
+     * Metodo per accettare una richiesta di iscrizione ad un club del libro.
+     * Una volta accettata, il lettore viene aggiunto alla lista degli iscritti per quel club del libro.
+     * @param request Bean che contiene i dati della richiesta da accettare
+     */
+
     public void acceptRequest(SubscriptionRequestBean request){
         SubscriptionRequestDAO subscriptionRequestDAO = GeneralDAOFactory.getInstance().createSubscriptionRequestDAO();
         BookClubDAO bookClubDAO = GeneralDAOFactory.getInstance().createBookClubDAO();
@@ -89,6 +116,11 @@ public class SubscribeToBookClubController extends GenericController {
         bookClubDAO.addSubscriber(requestEntity.getBookClubName());
         subscribersDAO.addSubscriber(requestEntity.getBookClubName(), requestEntity.getReaderUsername());
     }
+
+    /**
+     * Metodo per rifiutare una richiesta di iscrizione ad un club del libro.
+     * @param request Bean che contiene i dati della richiesta da rifiutare
+     */
 
     public void rejectRequest(SubscriptionRequestBean request){
         SubscriptionRequestDAO subscriptionRequestDAO = GeneralDAOFactory.getInstance().createSubscriptionRequestDAO();
