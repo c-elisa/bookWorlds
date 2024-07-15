@@ -2,7 +2,6 @@ package it.ispw.bookworlds.view.cli;
 
 import it.ispw.bookworlds.bean.AccountSignUpBean;
 import it.ispw.bookworlds.controller.graphic.cli.SignUpGraphicController;
-import it.ispw.bookworlds.controller.graphic.gui.GenericGUI;
 import it.ispw.bookworlds.exceptions.UsernameAlreadyTakenException;
 import it.ispw.bookworlds.model.Role;
 import it.ispw.bookworlds.utils.Printer;

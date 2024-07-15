@@ -14,7 +14,7 @@ public class SignUpController {
     public void signUp(AccountSignUpBean bean) throws UsernameAlreadyTakenException {
         AccountDAO accountDAO = GeneralDAOFactory.getInstance().createAccountDAO();
 
-        if(!(accountDAO.getAccountByUsername(bean.getUsername()) == null)) throw new UsernameAlreadyTakenException();
+        if(accountDAO.getAccountByUsername(bean.getUsername()) != null) throw new UsernameAlreadyTakenException();
 
         accountDAO.signUp(accountDAO.getMaxCode() + 1, bean.getUsername(), bean.getPassword(), bean.getEmail(), bean.getRole());
     }
