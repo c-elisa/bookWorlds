@@ -12,6 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ViewRequestsStateController {
+    /**
+     * Recupera le richieste di iscrizione inviate dall'utente corrente
+     * @return una lista di Bean che contengono le richieste di iscrizione
+     * @throws SessionNotFoundException se non esiste nessun account corrispondente al codice di sessione fornito
+     */
     public List<SubscriptionRequestBean> retrieveSubscriptionRequests() throws SessionNotFoundException {
         List<SubscriptionRequestBean> requests = new ArrayList<>();
         SubscriptionRequestDAO subscriptionRequestDAO = GeneralDAOFactory.getInstance().createSubscriptionRequestDAO();
@@ -25,6 +30,10 @@ public class ViewRequestsStateController {
         return requests;
     }
 
+    /**
+     * Chiama il metodo per eliminare le richieste dell'utente corrente che hanno già ricevuto risposta ed il cui stato è stato impostato ad ACCEPTED o REJECTED
+     * @throws SessionNotFoundException se non esiste nessun account corrispondente al codice di sessione fornito
+     */
     public void deleteRequests() throws SessionNotFoundException {
         SubscriptionRequestDAO subscriptionRequestDAO = GeneralDAOFactory.getInstance().createSubscriptionRequestDAO();
 

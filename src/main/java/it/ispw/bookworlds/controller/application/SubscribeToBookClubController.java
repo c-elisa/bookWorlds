@@ -31,13 +31,16 @@ public class SubscribeToBookClubController extends GenericController {
     public List<BookClubBean> findBookClubs(GenresListBean selectedGenres) throws NoBookClubsFoundException {
         ArrayList<BookClubBean> bookClubBeans = new ArrayList<>();
 
+        //Si recupera l'istanza del dao
         BookClubDAO bookClubDAO = GeneralDAOFactory.getInstance().createBookClubDAO();
 
+        //Crea una lista di Genre a partire dai generi presenti in selectedGenres
         ArrayList<Genre> genres = new ArrayList<>();
         for(String genre: selectedGenres.getGenres()){
             genres.add(Genre.valueOf(genre));
         }
 
+        //Recupera la lista di club del libro relativi ai generi e crea la lista di BookClubBean da restituire
         List<BookClubEntity> bookClubsEntities = bookClubDAO.getBookClubsByGenres(genres);
         for(BookClubEntity bookClub: bookClubsEntities){
             bookClubBeans.add(new BookClubBean(
@@ -60,12 +63,15 @@ public class SubscribeToBookClubController extends GenericController {
      */
 
     public void makeSubscriptionRequest(SubscriptionRequestBean request){
+        //Si recuperano le istanze dei dao necessari
         BookClubDAO bookClubDAO = GeneralDAOFactory.getInstance().createBookClubDAO();
         SubscriptionRequestDAO subscriptionRequestDAO = GeneralDAOFactory.getInstance().createSubscriptionRequestDAO();
         SubscribersDAO subscribersDAO = GeneralDAOFactory.getInstance().createSubscribersDAO();
 
+        //Si recuperano i dati del club del libro corrispondente al nome specificato nel Bean della richiesta
         BookClubEntity bookClub = bookClubDAO.getBookClubByName(request.getBookClubName());
 
+        //Si controlla se il club del libro è pieno e se il lettore che vuole inviare la richiesta è già iscritto oppure ha già inviato una richiesta per quel club
         if(bookClub.isFull()) request.setState(RequestState.REJECTED);
         else if(subscribersDAO.isSubscriber(request.getReaderUsername(), request.getBookClubName())
                 || subscriptionRequestDAO.hasAlreadySentRequest(request.getBookClubName(), request.getReaderUsername())) request.setState(RequestState.DUPLICATE);
@@ -83,16 +89,21 @@ public class SubscribeToBookClubController extends GenericController {
      */
 
     public List<SubscriptionRequestBean> retrieveSubscriptionRequests() throws SessionNotFoundException {
+        //Si recupera lo username dell'utente corrente
         String username = SessionManager.getAccountBySessionId(SessionBean.getSessionId()).getUsername();
 
+        //Si recuperano le istanze dei dao necessari
         SubscriptionRequestDAO subscriptionRequestDAO = GeneralDAOFactory.getInstance().createSubscriptionRequestDAO();
         BookClubDAO bookClubDAO = GeneralDAOFactory.getInstance().createBookClubDAO();
 
+        //Si recuperano i club del libro di proprietà dell'utente
         List<BookClubEntity> bookClubs = bookClubDAO.getBookClubsByOwner(username);
 
+        //Si recuperano le richieste di iscrizione per tutti i club del libro nella lista
         ArrayList<SubscriptionRequestEntity> requests = new ArrayList<>();
         for(BookClubEntity bookClub: bookClubs) requests.addAll(subscriptionRequestDAO.getRequestsByBookClubName(bookClub.getName()));
 
+        //Si creano i SubscriptionRequestBean da restituire
         ArrayList<SubscriptionRequestBean> requestsBean = new ArrayList<>();
         for(SubscriptionRequestEntity request: requests) requestsBean.add(new SubscriptionRequestBean(request));
 
@@ -110,6 +121,8 @@ public class SubscribeToBookClubController extends GenericController {
         BookClubDAO bookClubDAO = GeneralDAOFactory.getInstance().createBookClubDAO();
         SubscribersDAO subscribersDAO = GeneralDAOFactory.getInstance().createSubscribersDAO();
 
+        //Si imposta lo stato della richiesta ad ACCEPTED e si aggiorna lo stato della richiesta sulla persistenza
+        //Si aggiunge l'utente che ha fatto richiesta alla lista degli iscritti al club del libro e si aggiorna il numero di iscritti del club.
         request.setState(RequestState.ACCEPTED);
         SubscriptionRequestEntity requestEntity = new SubscriptionRequestEntity(request);
         subscriptionRequestDAO.updateSubscriptionRequest(requestEntity);
@@ -125,6 +138,7 @@ public class SubscribeToBookClubController extends GenericController {
     public void rejectRequest(SubscriptionRequestBean request){
         SubscriptionRequestDAO subscriptionRequestDAO = GeneralDAOFactory.getInstance().createSubscriptionRequestDAO();
 
+        //Si imposta lo stato della richiesta a REJECTED e si aggiorna lo stato della richiesta sulla persistenza.
         request.setState(RequestState.REJECTED);
         SubscriptionRequestEntity requestEntity = new SubscriptionRequestEntity(request);
         subscriptionRequestDAO.updateSubscriptionRequest(requestEntity);
