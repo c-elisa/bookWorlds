@@ -1,7 +1,7 @@
 package it.ispw.bookworlds.controller.graphic.gui;
 
 import it.ispw.bookworlds.bean.CredentialsBean;
-import it.ispw.bookworlds.bean.SessionBean;
+import it.ispw.bookworlds.utils.CurrentSession;
 import it.ispw.bookworlds.controller.application.LoginController;
 import it.ispw.bookworlds.exceptions.IncorrectPasswordException;
 import it.ispw.bookworlds.exceptions.SessionNotFoundException;
@@ -33,7 +33,7 @@ public class LoginGUI extends GenericGUI{
 
         try{
             controller.login(creds);
-            if(SessionManager.getAccountBySessionId(SessionBean.getSessionId()).getRole()==CURATOR) changePage(PagesGUI.CURATOR_HOMEPAGE);
+            if(SessionManager.getAccountBySessionId(CurrentSession.getSessionId()).getRole()==CURATOR) changePage(PagesGUI.CURATOR_HOMEPAGE);
             else changePage(PagesGUI.READER_HOMEPAGE);
         } catch(SessionNotFoundException | UsernameNotFoundException | IncorrectPasswordException e){
             errorLabel.setText(e.getLocalizedMessage() + "\n Riprovare.");

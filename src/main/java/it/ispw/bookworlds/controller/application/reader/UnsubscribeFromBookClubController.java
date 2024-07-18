@@ -1,6 +1,6 @@
 package it.ispw.bookworlds.controller.application.reader;
 
-import it.ispw.bookworlds.bean.SessionBean;
+import it.ispw.bookworlds.utils.CurrentSession;
 import it.ispw.bookworlds.dao.BookClubDAO;
 import it.ispw.bookworlds.dao.SubscribersDAO;
 import it.ispw.bookworlds.exceptions.BookClubsNotFound;
@@ -20,7 +20,7 @@ public class UnsubscribeFromBookClubController {
     public List<String> retrieveBookClubs() throws SessionNotFoundException, BookClubsNotFound {
         SubscribersDAO subscribersDAO = GeneralDAOFactory.getInstance().createSubscribersDAO();
 
-        return subscribersDAO.getReaderBookClubs(SessionManager.getAccountBySessionId(SessionBean.getSessionId()).getUsername());
+        return subscribersDAO.getReaderBookClubs(SessionManager.getAccountBySessionId(CurrentSession.getSessionId()).getUsername());
     }
 
     /**
@@ -32,7 +32,7 @@ public class UnsubscribeFromBookClubController {
         SubscribersDAO subscribersDAO = GeneralDAOFactory.getInstance().createSubscribersDAO();
         BookClubDAO bookClubDAO = GeneralDAOFactory.getInstance().createBookClubDAO();
 
-        subscribersDAO.removeSubscriber(bookClub, SessionManager.getAccountBySessionId(SessionBean.getSessionId()).getUsername());
+        subscribersDAO.removeSubscriber(bookClub, SessionManager.getAccountBySessionId(CurrentSession.getSessionId()).getUsername());
         bookClubDAO.removeSubscriber(bookClub);
     }
 }

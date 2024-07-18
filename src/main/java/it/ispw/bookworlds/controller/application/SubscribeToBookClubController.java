@@ -2,7 +2,7 @@ package it.ispw.bookworlds.controller.application;
 
 import it.ispw.bookworlds.bean.BookClubBean;
 import it.ispw.bookworlds.bean.GenresListBean;
-import it.ispw.bookworlds.bean.SessionBean;
+import it.ispw.bookworlds.utils.CurrentSession;
 import it.ispw.bookworlds.bean.SubscriptionRequestBean;
 import it.ispw.bookworlds.dao.BookClubDAO;
 import it.ispw.bookworlds.dao.SubscribersDAO;
@@ -90,7 +90,7 @@ public class SubscribeToBookClubController extends GenericController {
 
     public List<SubscriptionRequestBean> retrieveSubscriptionRequests() throws SessionNotFoundException {
         //Si recupera lo username dell'utente corrente
-        String username = SessionManager.getAccountBySessionId(SessionBean.getSessionId()).getUsername();
+        String username = SessionManager.getAccountBySessionId(CurrentSession.getSessionId()).getUsername();
 
         //Si recuperano le istanze dei dao necessari
         SubscriptionRequestDAO subscriptionRequestDAO = GeneralDAOFactory.getInstance().createSubscriptionRequestDAO();

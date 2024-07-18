@@ -1,6 +1,6 @@
 package it.ispw.bookworlds.controller.application.curator;
 
-import it.ispw.bookworlds.bean.SessionBean;
+import it.ispw.bookworlds.utils.CurrentSession;
 import it.ispw.bookworlds.dao.BookClubDAO;
 import it.ispw.bookworlds.dao.SubscribersDAO;
 import it.ispw.bookworlds.exceptions.SessionNotFoundException;
@@ -20,7 +20,7 @@ public class RemoveSubscriberController {
     public List<String> retrieveOwnerBookClubs() throws SessionNotFoundException {
         BookClubDAO bookClubDAO = GeneralDAOFactory.getInstance().createBookClubDAO();
 
-        List<BookClubEntity> bookClubsEntity = bookClubDAO.getBookClubsByOwner(SessionManager.getAccountBySessionId(SessionBean.getSessionId()).getUsername());
+        List<BookClubEntity> bookClubsEntity = bookClubDAO.getBookClubsByOwner(SessionManager.getAccountBySessionId(CurrentSession.getSessionId()).getUsername());
         List<String> bookClubsNames = new ArrayList<>();
 
         for(BookClubEntity bookClub: bookClubsEntity) bookClubsNames.add(bookClub.getName());

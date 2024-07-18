@@ -1,7 +1,7 @@
 package it.ispw.bookworlds.controller.graphic.cli;
 
 import it.ispw.bookworlds.bean.CredentialsBean;
-import it.ispw.bookworlds.bean.SessionBean;
+import it.ispw.bookworlds.utils.CurrentSession;
 import it.ispw.bookworlds.controller.application.LoginController;
 import it.ispw.bookworlds.exceptions.IncorrectPasswordException;
 import it.ispw.bookworlds.exceptions.SessionNotFoundException;
@@ -19,7 +19,7 @@ public class LoginGraphicController {
 
         try {
             controller.login(creds);
-            if(SessionManager.getAccountBySessionId(SessionBean.getSessionId()).getRole() == CURATOR) new CuratorHomepageCLI().display();
+            if(SessionManager.getAccountBySessionId(CurrentSession.getSessionId()).getRole() == CURATOR) new CuratorHomepageCLI().display();
             else new ReaderHomepageCLI().display();
         } catch(SessionNotFoundException e){
             Printer.printError(e);

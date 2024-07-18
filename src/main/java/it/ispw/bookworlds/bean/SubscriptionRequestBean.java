@@ -5,6 +5,7 @@ import it.ispw.bookworlds.bean.observer.Subject;
 import it.ispw.bookworlds.exceptions.SessionNotFoundException;
 import it.ispw.bookworlds.model.RequestState;
 import it.ispw.bookworlds.model.SubscriptionRequestEntity;
+import it.ispw.bookworlds.utils.CurrentSession;
 import it.ispw.bookworlds.utils.SessionManager;
 
 public class SubscriptionRequestBean extends Subject {
@@ -13,13 +14,13 @@ public class SubscriptionRequestBean extends Subject {
     private RequestState state;
 
     public SubscriptionRequestBean(String name) throws SessionNotFoundException {
-        this.readerUsername = SessionManager.getAccountBySessionId(SessionBean.getSessionId()).getUsername();
+        this.readerUsername = SessionManager.getAccountBySessionId(CurrentSession.getSessionId()).getUsername();
         this.bookClubName = name;
         this.state = RequestState.NO_STATE;
     }
 
     public SubscriptionRequestBean(String name, RequestState state) throws SessionNotFoundException {
-        this.readerUsername = SessionManager.getAccountBySessionId(SessionBean.getSessionId()).getUsername();
+        this.readerUsername = SessionManager.getAccountBySessionId(CurrentSession.getSessionId()).getUsername();
         this.bookClubName = name;
         this.state = state;
     }

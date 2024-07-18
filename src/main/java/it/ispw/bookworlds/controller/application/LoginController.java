@@ -1,7 +1,7 @@
 package it.ispw.bookworlds.controller.application;
 
 import it.ispw.bookworlds.bean.CredentialsBean;
-import it.ispw.bookworlds.bean.SessionBean;
+import it.ispw.bookworlds.utils.CurrentSession;
 import it.ispw.bookworlds.dao.LoginDAO;
 import it.ispw.bookworlds.exceptions.IncorrectPasswordException;
 import it.ispw.bookworlds.exceptions.UsernameNotFoundException;
@@ -23,7 +23,7 @@ public class LoginController {
 
         account = loginDao.login(creds.getUsername(), creds.getPassword());
         SessionManager.addSession(account);
-        SessionBean.setSessionId(account.getCode());
+        CurrentSession.setSessionId(account.getCode());
         return true;
     }
 }

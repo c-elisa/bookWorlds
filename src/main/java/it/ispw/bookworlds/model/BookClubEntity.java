@@ -1,7 +1,7 @@
 package it.ispw.bookworlds.model;
 
 import it.ispw.bookworlds.bean.BookClubBean;
-import it.ispw.bookworlds.bean.SessionBean;
+import it.ispw.bookworlds.utils.CurrentSession;
 import it.ispw.bookworlds.exceptions.SessionNotFoundException;
 import it.ispw.bookworlds.model.bookclub.state.BookClubStateMachine;
 import it.ispw.bookworlds.model.bookclub.state.BookClubStateMachineImpl;
@@ -26,7 +26,7 @@ public class BookClubEntity {
         this.genres = bean.getGenres();
         this.numberOfSubscribers = 0;
         this.capacity = bean.getCapacity();
-        this.owner = SessionManager.getAccountBySessionId(SessionBean.getSessionId()).getUsername();
+        this.owner = SessionManager.getAccountBySessionId(CurrentSession.getSessionId()).getUsername();
         this.subscribersList = new ArrayList<AccountEntity>();
         this.readingList = new ArrayList<BookEntity>();
 
