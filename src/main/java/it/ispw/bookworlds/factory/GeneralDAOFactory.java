@@ -4,6 +4,11 @@ import it.ispw.bookworlds.dao.*;
 import it.ispw.bookworlds.exceptions.InvalidPersistenceTypeException;
 import it.ispw.bookworlds.utils.ApplicationProperties;
 
+/**
+ * Interfaccia astratta per la Factory che ha la responsabilità di creare le varie classi DAO
+ * Viene implementata come Singleton
+ * A seconda del tipo di persistenza scelto, l'unica istanza verrà impostata ad una delle due Factory concrete
+ */
 public abstract class GeneralDAOFactory {
     private static GeneralDAOFactory instance = null;
 

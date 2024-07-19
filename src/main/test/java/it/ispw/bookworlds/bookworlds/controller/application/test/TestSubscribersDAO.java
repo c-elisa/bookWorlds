@@ -7,6 +7,9 @@ import org.junit.jupiter.api.Test;
 
 public class TestSubscribersDAO {
 
+    /**
+     * Viene testato il metodo per rimuovere un utente dalla lista degli iscritti di un club del libro
+     */
     @Test
     public void testRemoveSubscriber(){
         String username = "elisaV";

@@ -2,6 +2,9 @@ package it.ispw.bookworlds.factory;
 
 import it.ispw.bookworlds.dao.*;
 
+/**
+ * Factory concreta che si occupa della creazione delle classi DAO della famiglia JDBC
+ */
 public class GeneralDAOFactoryJDBC extends GeneralDAOFactory {
     @Override
     public AccountDAO createAccountDAO() {return AccountDAOJDBC.getInstance();}

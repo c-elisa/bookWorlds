@@ -13,10 +13,10 @@ public class ApplicationProperties {
     private ApplicationProperties(){}
 
     public static String getProperty(String prop){
-        try (InputStream propFile = new FileInputStream(PROPERTIES_FILEPATH)){
+        try{
             if(properties == null) {
                 properties = new Properties();
-                properties.load(propFile);
+                properties.load(new FileInputStream(PROPERTIES_FILEPATH));
             }
         } catch (IOException e) {
             Printer.printError("Errore durante la lettura del file di configurazione", e);

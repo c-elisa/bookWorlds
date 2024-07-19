@@ -7,6 +7,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * Classe singleton che si occupa di aprire l'unica connessione con il DBMS
+ */
+
 public class ConnectionFactory {
     private static Connection instance = null;
 
